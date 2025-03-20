@@ -11,7 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->statefulApi(); // For Sanctum
+        $middleware->append(\Illuminate\Http\Middleware\HandleCors::class); //enable cors
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
