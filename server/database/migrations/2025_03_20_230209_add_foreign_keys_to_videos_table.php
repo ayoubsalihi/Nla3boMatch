@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('match_player', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("match_id");
-            $table->unsignedBigInteger("player_id");
-            $table->timestamps();
+        Schema::table('videos', function (Blueprint $table) {
+            $table->foreign("post_id")->references("id")->on("posts")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('match_player');
+        Schema::table('videos', function (Blueprint $table) {
+            $table->dropForeign("post_id");
+        });
     }
 };
