@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('teams', function (Blueprint $table) {
-            $table->addColumn("integer","terrain_id");
+        Schema::table('groups', function (Blueprint $table) {
+            $table->foreign("competition_id")->references("id")->on("competitions")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('teams', function (Blueprint $table) {
-            $table->dropColumn("terrain_id");   
+        Schema::table('groups', function (Blueprint $table) {
+            $table->dropForeign("competition_id");
         });
     }
 };
