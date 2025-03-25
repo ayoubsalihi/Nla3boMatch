@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("result");
             $table->unsignedBigInteger("competition_id");
             $table->unsignedBigInteger("team1_id");
-            $table->unsignedInteger("team2_id");
+            $table->foreignId("team2_id")->constrained("teams")->onDelete("cascade");
             $table->unsignedBigInteger("terrain_id");
             $table->timestamps();
         });
