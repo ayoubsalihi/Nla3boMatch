@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Competition;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Node\Expr\Match_;
 
 class Post extends Model
 {
@@ -17,8 +17,12 @@ class Post extends Model
         return $this->hasOne(User::class);
     }
 
-    // each post is related to one match
+    // each post could be related to a match
     public function match(){
-        return $this->belongsTo(Match::class);
+        return $this->belongsTo(Partido::class);
+    }
+    // each post could be related to a competition
+    public function competition(){
+        return $this->belongsTo(Competition::class);
     }
 }

@@ -46,4 +46,28 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    /**
+     * A user could be admin 
+     */
+    public function admin(){
+        return $this->hasOne(Admin::class);
+    }
+    /**
+     * A user can be player
+     */
+    public function player(){
+        return $this->hasOne(Player::class);
+    }
+    /**
+     * Every user have many chats
+     */
+    public function chats(){
+        return $this->hasMany(Chat::class);
+    }
+    /**
+     * Every user has many friendships
+     */
+    public function friendships(){
+        return $this->belongsToMany(Friendship::class,"friendships");
+    }
 }

@@ -27,4 +27,10 @@ class Chat extends Model
     public function messages(){
         return $this->hasMany(Message::class);
     }
+    /**
+     * A chat contain many users
+     */
+    public function users(){
+        return $this->hasMany(User::class);
+    }
 }
