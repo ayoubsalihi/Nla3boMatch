@@ -2,9 +2,9 @@
 
 namespace App\Models\Users;
 
-use App\Models\Goalkeeper;
-use App\Models\InsidePlayer;
-use App\Models\Team;
+use App\Models\Users\Goalkeeper;
+use App\Models\Users\InsidePlayer;
+use App\Models\Teams\Team;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
