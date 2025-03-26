@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Users;
 
+use App\Models\Goalkeeper;
+use App\Models\InsidePlayer;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
