@@ -2,8 +2,8 @@
 
 namespace App\Models\Posts;
 
-use App\Models\Competition;
-use App\Models\Partido;
+use App\Models\Competitions\Competition;
+use App\Models\Competitions\Partido;
 use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
