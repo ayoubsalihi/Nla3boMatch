@@ -1,7 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Competitions;
 
+use App\Models\Posts\Post;
+use App\Models\Teams\Team;
+use App\Models\Terrains\Terrain;
+use App\Models\Users\Player;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

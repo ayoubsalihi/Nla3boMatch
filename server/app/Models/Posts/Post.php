@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Posts;
 
-use App\Models\Competition;
+use App\Models\Competitions\Competition;
+use App\Models\Competitions\Partido;
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,5 +26,17 @@ class Post extends Model
     // each post could be related to a competition
     public function competition(){
         return $this->belongsTo(Competition::class);
+    }
+    /**
+     * A post can be an image
+     */
+    public function image(){
+        return $this->hasMany(Image::class);
+    }
+    /**
+     * A post can have one or many videos
+     */
+    public function video(){
+        return $this->hasMany(Video::class);
     }
 }

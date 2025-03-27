@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Competitions;
 
+use App\Models\Teams\Team;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,7 +44,7 @@ class Knockout extends Model
      */
     public function match()
     {
-        // return $this->belongsTo(Match::class);
+        return $this->belongsTo(Partido::class);
     }
 
     /**
