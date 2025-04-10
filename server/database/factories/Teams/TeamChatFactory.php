@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Teams;
 
+use App\Models\Teams\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,7 @@ class TeamChatFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "team_id" => Team::inRandomOrder()->first()->id ?? Team::factory()->create()->id,
         ];
     }
 }
