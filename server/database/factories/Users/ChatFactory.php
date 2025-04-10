@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Users;
 
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class ChatFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "user1_id" => User::inRandomOrder()->first()->id ?? User::factory()->create()->id,
+            "user2_id" => User::inRandomOrder()->first()->id ?? User::factory()->create()->id,
         ];
     }
 }
