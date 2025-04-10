@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Posts\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class VideoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "intitule_video" => $this->faker->sentence(3),
+            "description" => $this->faker->paragraph(3),
+            "post_id" => Post::inRandmOrder()->first()->id ?? Post::factory()->create()->id,
         ];
     }
 }
