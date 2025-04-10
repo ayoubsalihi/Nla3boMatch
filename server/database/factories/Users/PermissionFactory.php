@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Users;
 
 use App\Models\Users\Admin;
 use App\Models\Users\Role;

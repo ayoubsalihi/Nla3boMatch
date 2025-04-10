@@ -1,7 +1,9 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Users;
 
+use App\Models\Competitions\Partido;
+use App\Models\Users\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
