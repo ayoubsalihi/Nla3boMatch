@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('academies', function (Blueprint $table) {
             $table->id();
             $table->string("name_academy");
-            $table->string("reference");
+            $table->string("reference")->unique();
             $table->string("responsable");
             $table->string("type_academy");
             $table->unsignedBigInteger("terrain_id");

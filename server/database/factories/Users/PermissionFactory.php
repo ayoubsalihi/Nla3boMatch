@@ -1,7 +1,9 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Users;
 
+use App\Models\Users\Admin;
+use App\Models\Users\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class PermissionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "type" => $this->faker->word,
+            // each admin is assigned to a role and its permissions
+            "admin_id" => Admin::factory()->create()->id,
+            "role_id" => Role::factory()->create()->id,
         ];
     }
 }

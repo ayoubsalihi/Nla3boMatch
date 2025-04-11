@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Terrains;
 
+use App\Models\Terrains\Terrain;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class AcademyFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "name_academy" => $this->faker->name(),
+            "reference" => $this->faker->unique()->word(),
+            "responsable" => $this->faker->name(),
+            "type_academy" => $this->faker->randomElement(["Academy", "School"]),
+            "terrain_id" => Terrain::inrandomOrder()->first()->id ?? Terrain::factory()->create()->id,
         ];
     }
 }

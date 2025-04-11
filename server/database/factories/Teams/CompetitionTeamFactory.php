@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Competitions\Competition;
+use App\Models\Teams\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,9 @@ class CompetitionTeamFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "team_id" => Team::inRandomOrder()->first()->id ?? Team::factory()->create()->id,
+            "competition_id" => Competition::inRandomOrder()->first()->id ?? Competition::factory()->create()->id,
+
         ];
     }
 }

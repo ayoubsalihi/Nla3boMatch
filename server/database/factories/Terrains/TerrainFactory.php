@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Terrains;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,7 +17,7 @@ class TerrainFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "intitule_terrain" =>$this->faker->word(),
         ];
     }
 }

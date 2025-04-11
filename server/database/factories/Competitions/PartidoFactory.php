@@ -1,7 +1,10 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Competitions;
 
+use App\Models\Competitions\Competition;
+use App\Models\Teams\Team;
+use App\Models\Terrains\Terrain;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,13 @@ class PartidoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "type_match" => $this->faker->randomElement(["friendly", "league", "cup"]),
+            "level_match" => $this->faker->randomElement(["amateur", "professional"]),
+            "result" => "2-1",
+            "competition_id" => Competition::inRandomOrder()->first()->id ?? Competition::factory()->create()->id,
+            "team1_id" => Team::inRandomOrder()->first()->id ?? Team::factory()->create()->id,
+            "team2_id" => Team::inRandomOrder()->first()->id ?? Team::factory()->create()->id,
+            "terrain_id" => Terrain::inRandomOrder()->first()->id ?? Terrain::factory()->create()->id,
         ];
     }
 }

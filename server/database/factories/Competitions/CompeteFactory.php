@@ -1,7 +1,9 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Competitions;
 
+use App\Models\Competitions\Partido;
+use App\Models\Teams\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class CompeteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "match_id" => Partido::inRandomOrder()->first()->id ?? Partido::factory()->create()->id,
+            "team_id" => Team::inRandomOrder()->first()->team1_id ?? Team::factory()->create()->team1_id,
         ];
     }
 }

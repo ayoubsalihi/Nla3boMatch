@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Teams\TeamChat;
+use App\Models\Users\Chat;
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,10 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "message" => $this->faker->sentence(),
+            "chat_id" => Chat::factory()->create()->id,
+            "sender_id" => User::factory()->create()->id,
+            "team_chat_id" => TeamChat::factory()->create()->id,
         ];
     }
 }

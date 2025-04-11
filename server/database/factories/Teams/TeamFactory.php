@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Teams;
 
+use App\Models\Competitions\Competition;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class TeamFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "inititule_team" => $this->faker->word(),
+            "type_team" => $this->faker->word(),
+            "size_team" => $this->faker->word(),
+            "responsable" => $this->faker->word(),
+            "competition_id" => Competition::inRandomOrder()->first()->id ?? Competition::factory()->create()->id,
         ];
     }
 }

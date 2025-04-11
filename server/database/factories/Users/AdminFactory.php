@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Users;
 
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,7 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "user_id" => User::inRandomOrder()->first()->id ?? User::factory()->create()->id, 
         ];
     }
 }

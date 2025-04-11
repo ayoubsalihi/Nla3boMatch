@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Teams;
 
+use App\Models\Teams\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,13 @@ class GroupTeamFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
-            //
+            "points" => $this->faker->numberBetween(0,9),
+            "GF" => $this->faker->numberBetween(0,9),
+            "GA" => $this->faker->numberBetween(0,9),
+            "GD" => $this->faker->numberBetween(0,9),
+            "team_id" => Team::inRandomOrder()->first()->id ?? Team::factory()->create()->id ,
         ];
     }
 }
