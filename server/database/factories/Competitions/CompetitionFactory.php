@@ -17,7 +17,10 @@ class CompetitionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "intitule_competition" => $this->faker->randomElement(["Ligue 1", "Premier League", "La Liga", "Serie A", "Bundesliga"]),
+            "type_competition" => $this->faker->randomElement(["league", "cup"]),
+            "date_debut" => $this->faker->date(),
+            "date_fin" => $this->faker->date(),
         ];
     }
 }
