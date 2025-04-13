@@ -4,17 +4,14 @@ namespace App\Models\Users;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\IsUser;
 
 class Admin extends Model
 {
     /** @use HasFactory<\Database\Factories\AdminFactory> */
-    use HasFactory;
+    use HasFactory , IsUser;
     protected $guarded =[];
-
-    // each admin is a user
-    public function user(){
-        return $this->hasOne(User::class);
-    }
+    
     /**
      * The roles should be stored in the database , and each admin has many roles
      */
