@@ -9,13 +9,14 @@ use App\Models\Teams\Team;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\IsUser;
+use App\Traits\TeamsManagement;
 
 class Player extends Model
 {
     /** @use HasFactory<\Database\Factories\PlayerFactory> */
-    use HasFactory , IsUser;
+    use HasFactory , IsUser , TeamsManagement;
     protected $guarded = [];
-    
+
     // each player is joining only one team
     public function team(){
         return $this->hasOne(Team::class);
