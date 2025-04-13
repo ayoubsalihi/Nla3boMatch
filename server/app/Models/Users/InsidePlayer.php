@@ -2,18 +2,15 @@
 
 namespace App\Models\Users;
 
+use App\Traits\PlayersManagement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class InsidePlayer extends Model
 {
     /** @use HasFactory<\Database\Factories\InsidePlayerFactory> */
-    use HasFactory;
-
-    protected $guarded = [];
+    /** ^use PlayersManagement<\App\Traits\PlayersManagement> */
+    use HasFactory , PlayersManagement;
     
-    // each D/M/F is a player
-    public function player(){
-        return $this->hasOne(Player::class);
-    }
+    protected $guarded = [];
 }

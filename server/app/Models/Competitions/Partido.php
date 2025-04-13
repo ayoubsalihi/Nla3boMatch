@@ -6,25 +6,20 @@ use App\Models\Posts\Post;
 use App\Models\Teams\Team;
 use App\Models\Terrains\Terrain;
 use App\Models\Users\Player;
+use App\Traits\TeamsManagement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Partido extends Model
 {
     /** @use HasFactory<\Database\Factories\PartidoFactory> */
-    use HasFactory;
+    use HasFactory , TeamsManagement;
     /**
      * @abstract name - this model is for matches table because the Match name is taken by PHP
      */
 
      protected $guarded = [];
      protected $table = "matches";
-    /**
-     * Every match take charge of teams
-    */
-    public function teams(){
-        return $this->hasMany(Team::class);
-    }
     /**
      * Each match has team 1
      */

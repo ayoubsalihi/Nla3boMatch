@@ -3,13 +3,14 @@
 namespace App\Models\Competitions;
 
 use App\Models\Teams\Team;
+use App\Traits\TeamsManagement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
     /** @use HasFactory<\Database\Factories\GroupFactory> */
-    use HasFactory;
+    use HasFactory , TeamsManagement;
 
     protected $guarded = [];
     // each griup is related to one competition
@@ -18,7 +19,5 @@ class Group extends Model
     }
 
     // each group contain many teams
-    public function teams(){
-        return $this->hasMany(Team::class,"group_team");
-    }
+    
 }
