@@ -1,5 +1,6 @@
 <?php
 
+use app\Helpers\MigrationHelper;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +14,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string("intitule_image")->nullable();
-            $table->text("description")->nullable();
-            $table->unsignedBigInteger("post_id");
+            MigrationHelper::sharedColumnsForVideosAndImages($table);
             $table->timestamps();
         });
     }

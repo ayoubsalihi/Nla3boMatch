@@ -2,6 +2,7 @@
 
 namespace App\Models\Users;
 
+use App\Models\Competitions\Competition;
 use App\Models\Users\Goalkeeper;
 use App\Models\Users\InsidePlayer;
 use App\Models\Teams\Team;
@@ -33,4 +34,14 @@ class Player extends Model
     public function insideplayer(){
         return $this->belongsTo(InsidePlayer::class);
     }
+
+    public function competitions()
+{
+    return Competition::query()
+        ->select('competitions.*')
+        ->join('competition_team', 'competitions.id', '=', 'competition_team.competition_id')
+        ->join('teams', 'competition_team.team_id', '=', 'teams.id')
+        ->where('teams.id', optional($this->team)->id);
+}
+
 }
