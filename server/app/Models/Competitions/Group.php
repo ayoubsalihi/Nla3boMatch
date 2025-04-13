@@ -18,7 +18,5 @@ class Group extends Model
     }
 
     // each group contain many teams
-    public function teams(){
-        return $this->hasMany(Team::class,"group_team");
-    }
+    
 }
