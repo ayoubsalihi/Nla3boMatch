@@ -40,4 +40,6 @@ class Team extends Model
     public function team_chat(){
         return $this->hasOne(TeamChat::class);
     }
+
+    
 }
