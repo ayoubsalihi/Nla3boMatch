@@ -56,10 +56,4 @@ class Partido extends Model
     public function posts(){
         return $this->hasMany(Post::class);
     }
-    /**
-     * A match can be a knockout match
-     */
-    public function knockout(){
-        return $this->belongsTo(Knockout::class);
-    }
 }
