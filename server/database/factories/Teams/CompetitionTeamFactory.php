@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Teams;
 
 use App\Models\Competitions\Competition;
 use App\Models\Teams\Team;

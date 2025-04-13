@@ -16,11 +16,6 @@ class Player extends Model
     /** @use HasFactory<\Database\Factories\PlayerFactory> */
     use HasFactory , IsUser , TeamsManagement;
     protected $guarded = [];
-
-    // each player is joining only one team
-    public function team(){
-        return $this->hasOne(Team::class);
-    }
     /**
      * A player could be a goalkeeper
      */
