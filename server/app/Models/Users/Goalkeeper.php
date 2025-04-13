@@ -1,19 +1,13 @@
 <?php
 
 namespace App\Models\Users;
-
-use App\Models\Users\Player;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Traits\PlayersManagement;
 class Goalkeeper extends Model
 {
     /** @use HasFactory<\Database\Factories\GoalkeeperFactory> */
-    use HasFactory;
+    /** @use PlayersManegemet<\App\Traits\PlayersManagement> */
+    use HasFactory , PlayersManagement;
     protected $guarded = [];
-
-    // each goalkeeper is a player
-    public function player(){
-        return $this->hasOne(Player::class);
-    }
 }
