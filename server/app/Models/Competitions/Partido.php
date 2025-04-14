@@ -56,4 +56,36 @@ class Partido extends Model
     public function posts(){
         return $this->hasMany(Post::class);
     }
+
+    /**
+     * We want to make some optimized query builder methods
+     * to manage competitions that having knockouts and groups
+     * @param $query
+     */
+    // this method is used to get the matches that are in the knockout stage
+    public function scopeKnockouts($query){
+    return $query->whereNull('group_id')->whereNotNull('stage');
+    }
+
+    // this method is used to get the matches that are in the group stage
+    public function scopeGroupMatches($query){
+        return $query->whereNotNull('group_id');
+    }
+
+    /**
+     * this method is used to get the Knockout matches
+     */
+    public static function getKnockoutMatches($competitionId){
+        return self::knockouts()->where('competition_id', $competitionId)->orderBy('round_number')->get();
+    }
+
+    /**
+     * this method is used to get the matches by rounds
+     */
+    public static function getMatchesByStage($competitionId, $round){   
+        return self::knockouts()
+            ->where('competition_id', $competitionId)
+            ->where('round', $round)
+            ->get();
+    }
 }

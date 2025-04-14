@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->foreign("terrain_id")->references("id")->on("terrains")->onDelete("cascade")->onUpdate("cascade");
-
-
+        Schema::table('matches', function (Blueprint $table) {
+            $table->enum("round", ["amical","group", "1/8", "1/4", "1/2", "final"])->after("result");
         });
     }
 
@@ -23,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->dropForeign("terrain_id");
-            $table->dropForeign("team_id");
+        Schema::table('matches', function (Blueprint $table) {
+            //
         });
     }
 };

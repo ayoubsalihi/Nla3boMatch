@@ -12,9 +12,9 @@ class Academy extends Model
     protected $guarded = [];
 
     /**
-     * Each academy has the right to reserve only one terrain
+     * The morph relationship because the Terrain model has one relationship with Relationship and Team.
      */
-    public function terrain(){
-        return $this->hasOne(Terrain::class);
+    public function reservations(){
+        return $this->morphMany(Reservation::class, 'reservable');
     }
 }

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->string("date_reservation");
+            $table->timestamp('start_time');
+            $table->timestamp('end_time');
             $table->enum("status",["en attente","confirmé","abandonnée"]);
-            $table->unsignedBigInteger("team_id");
+            $table->morphs('reservable');
             $table->unsignedBigInteger("terrain_id");
             $table->timestamps();
         });
