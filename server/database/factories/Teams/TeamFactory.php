@@ -2,7 +2,8 @@
 
 namespace Database\Factories\Teams;
 
-use App\Models\Competitions\Competition;
+
+use App\Models\Terrains\Terrain;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +23,7 @@ class TeamFactory extends Factory
             "type_team" => $this->faker->word(),
             "size_team" => $this->faker->word(),
             "responsable" => $this->faker->word(),
-            "competition_id" => Competition::inRandomOrder()->first()->id ?? Competition::factory()->create()->id,
+            "terrain_id" => Terrain::inRandomOrder()->first()->id ?? Terrain::factory()->create()->id,
         ];
     }
 }

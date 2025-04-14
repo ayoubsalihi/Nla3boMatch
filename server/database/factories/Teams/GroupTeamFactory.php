@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Teams;
 
+use App\Models\Competitions\Group;
 use App\Models\Teams\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,6 +25,7 @@ class GroupTeamFactory extends Factory
             "GA" => $this->faker->numberBetween(0,9),
             "GD" => $this->faker->numberBetween(0,9),
             "team_id" => Team::inRandomOrder()->first()->id ?? Team::factory()->create()->id ,
+            "group_id" => Group::inRandomOrder()->first()->id ?? Group::factory()->create()->id,
         ];
     }
 }

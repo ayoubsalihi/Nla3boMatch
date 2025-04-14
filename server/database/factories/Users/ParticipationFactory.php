@@ -3,6 +3,7 @@
 namespace Database\Factories\Users;
 
 use App\Models\Competitions\Partido;
+use App\Models\Users\Player;
 use App\Models\Users\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,7 +22,7 @@ class ParticipationFactory extends Factory
         // participation model refers to match_player associated table
         return [
             "match_id" => Partido::factory()->create()->id,
-            "role_id" => Role::factory()->create()->id,
+            "player_id" => Player::factory()->create()->id,
         ];
     }
 }
