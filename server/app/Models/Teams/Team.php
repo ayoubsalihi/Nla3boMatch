@@ -30,9 +30,11 @@ class Team extends Model
     }
     /**
      * Each team could make one or many reservations
+     * @see Reservation
+     * @see Terrain
      */
-    public function reservation(){
-        return $this->belongsToMany(Reservation::class);
+    public function reservations(){
+        return $this->morphMany(Reservation::class, 'reservable');
     }
     /**
      * Each team has a spesific team chat

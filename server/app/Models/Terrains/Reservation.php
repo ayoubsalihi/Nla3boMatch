@@ -13,10 +13,11 @@ class Reservation extends Model
     protected $guarded = [];
 
     /**
-     * Get the team associated with the reservation
+     * The morph relationshi^is used here because we have the same relationship with Team and Reservation models
      */
-    public function team(){
-        return $this->hasOne(Team::class);
+    public function reservable()
+    {
+        return $this->morphTo();
     }
     /**
      * Each reservation should be associated with a terrain
