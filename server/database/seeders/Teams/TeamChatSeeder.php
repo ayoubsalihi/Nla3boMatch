@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Teams;
 
+use App\Models\Teams\TeamChat;
 use Database\Factories\Teams\TeamChatFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,6 @@ class TeamChatSeeder extends Seeder
      */
     public function run(): void
     {
-        TeamChatFactory::create()->count(10);
+        TeamChat::factory()->count(10)->create();
     }
 }

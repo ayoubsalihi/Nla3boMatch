@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Terrains;
 
+use App\Models\Terrains\Reservation;
 use Database\Factories\Terrains\ReservationFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,6 @@ class ReservationSeeder extends Seeder
      */
     public function run(): void
     {
-        ReservationFactory::create()->count(10);
+        Reservation::factory()->count(10)->create();
     }
 }

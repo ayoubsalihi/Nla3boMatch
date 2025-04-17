@@ -20,8 +20,8 @@ class PlayerFactory extends Factory
     {
         return [
             "poste" => $this->faker->randomElement(["Attaquant", "Milieu", "Defenseur", "Gardien"]),
-            "user_id" => User::factory()->create()->id,
-            "team_id" => Team::factory()->create()->id,
+            "user_id" => User::inRandomOrder()->first()->id ?? User::factory()->create()->id,
+            "team_id" => Team::inRandomOrder()->first()->id ?? Team::factory()->create()->id,
         ];
     }
 }

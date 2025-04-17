@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Users;
 
-use Database\Factories\Users\GoalkeeperFactory;
+use App\Models\Users\Goalkeeper;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +13,6 @@ class GoalkeeperSeeder extends Seeder
      */
     public function run(): void
     {
-        GoalkeeperFactory::create()->count(10);
+        Goalkeeper::factory()->count(10)->create();
     }
 }
