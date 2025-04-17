@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Competitions;
 
+use Database\Factories\Competitions\CompetitionFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class CompetitionSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        CompetitionFactory::create()->count(10);
     }
 }
