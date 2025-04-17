@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Posts;
 
 use Database\Factories\Posts\ImageFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
