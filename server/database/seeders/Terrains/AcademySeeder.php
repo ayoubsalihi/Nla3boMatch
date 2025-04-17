@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Terrains;
 
+use App\Models\Terrains\Academy;
 use Database\Factories\Terrains\AcademyFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,6 @@ class AcademySeeder extends Seeder
      */
     public function run(): void
     {
-        AcademyFactory::create()->count(10);
+        Academy::factory()->count(10)->create();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Users;
 
+use App\Models\Users\Chat;
 use Database\Factories\Users\ChatFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,6 @@ class ChatSeeder extends Seeder
      */
     public function run(): void
     {
-        ChatFactory::create()->count(10);
+        Chat::factory()->count(10)->create();
     }
 }

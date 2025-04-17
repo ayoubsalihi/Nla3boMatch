@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Competitions;
 
+use App\Models\Competitions\Competition;
 use Database\Factories\Competitions\CompetitionFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,6 @@ class CompetitionSeeder extends Seeder
      */
     public function run(): void
     {
-        CompetitionFactory::create()->count(10);
+        Competition::factory()->count(10)->create();
     }
 }

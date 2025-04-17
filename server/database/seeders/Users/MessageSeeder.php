@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Users;
 
-use Database\Factories\Users\MessageFactory;
+use App\Models\Users\Message;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +13,6 @@ class MessageSeeder extends Seeder
      */
     public function run(): void
     {
-        MessageFactory::create()->count(10);
+        Message::factory()->count(10)->create();
     }
 }

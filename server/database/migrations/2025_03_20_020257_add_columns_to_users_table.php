@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string("telephone");
             $table->string("ville_residence");
             $table->string("quartier");
-            $table->unsignedBigInteger("player_id");
-            $table->unsignedBigInteger("admin_id");
         });
     }
 

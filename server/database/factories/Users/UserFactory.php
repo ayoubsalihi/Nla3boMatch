@@ -35,8 +35,6 @@ class UserFactory extends Factory
         'ville_residence' => fake()->city(),
         'quartier' => fake()->streetName(),
         // player_id and admin_id are foreign keys to determine the user type.
-        'player_id' => $type_utilisateur === 'player' ? Player::factory()->create()->id : null,
-        'admin_id' => $type_utilisateur === 'admin' ? Admin::factory()->create()->id : null,
         'email' => fake()->unique()->safeEmail(),
         'email_verified_at' => now(),
         'password' => static::$password ??= Hash::make('password'),

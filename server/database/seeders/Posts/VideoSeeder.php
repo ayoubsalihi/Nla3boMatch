@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Posts;
 
+use App\Models\Posts\Video;
 use Database\Factories\Posts\VideoFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,6 @@ class VideoSeeder extends Seeder
      */
     public function run(): void
     {
-        VideoFactory::create()->count(10);
+        Video::factory()->count(10)->create();
     }
 }

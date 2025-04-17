@@ -19,7 +19,7 @@ class TeamFactory extends Factory
     public function definition(): array
     {
         return [
-            "inititule_team" => $this->faker->word(),
+            "intitule_team" => $this->faker->word(),
             "type_team" => $this->faker->word(),
             "size_team" => $this->faker->word(),
             "responsable" => $this->faker->word(),
