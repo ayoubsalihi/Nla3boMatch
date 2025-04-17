@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Terrains;
 
+use Database\Factories\Terrains\ReservationFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class ReservationSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        ReservationFactory::create()->count(10);
     }
 }
