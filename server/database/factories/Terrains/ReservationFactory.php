@@ -3,6 +3,9 @@
 namespace Database\Factories\Terrains;
 
 use App\Models\Teams\Team;
+use App\Models\Terrains\Academy;
+use App\Models\Terrains\Terrain;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,10 +20,22 @@ class ReservationFactory extends Factory
      */
     public function definition(): array
     {
+        $reservableTypes = [
+            Team::class,
+            Academy::class,
+        ];
+        $reservableType = $this->faker->randomElement($reservableTypes);
+        $reservable = $reservableType::inRandomOrder()->first() ?? $reservableType::factory()->create();
+
+        $start = Carbon::now()->addDays(rand(1, 30))->setTime(rand(8, 20), [0, 30][rand(0, 1)]);
+        $end = (clone $start)->addHours(1);
         return [
-            "date_reservation" => $this->faker->dateTimeBetween('-1 week', '+1 week')->format('Y-m-d'),
-            "status" => $this->faker->randomElement(["en attente", "confirmé", "abandonnée"]),
-            "team_id" => Team::inRandomOrder()->first()->id ?? Team::factory()->create()->id,
+            'terrain_id' => Terrain::inRandomOrder()->first()?->id ?? Terrain::factory()->create()->id,
+            'reservable_type' => $reservableType,
+            'reservable_id' => $reservable->id,
+            'start_time' => $start,
+            'end_time' => $end,
+            'status' => $this->faker->randomElement(['pending', 'confirmed', 'canceled']),
         ];
     }
 }

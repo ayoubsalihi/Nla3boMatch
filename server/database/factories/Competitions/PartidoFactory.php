@@ -23,6 +23,7 @@ class PartidoFactory extends Factory
             "type_match" => $this->faker->randomElement(["friendly", "league", "cup"]),
             "level_match" => $this->faker->randomElement(["amateur", "professional"]),
             "result" => "2-1",
+            "round" => $this->faker->randomElement(["1/8", "1/4", "1/2", "final"]),
             "competition_id" => Competition::inRandomOrder()->first()->id ?? Competition::factory()->create()->id,
             "team1_id" => Team::inRandomOrder()->first()->id ?? Team::factory()->create()->id,
             "team2_id" => Team::inRandomOrder()->first()->id ?? Team::factory()->create()->id,
