@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreign("team1_id")->references("id")->on("teams")->onDelete("cascade")->onUpdate("cascade");
             $table->foreign("team2_id")->references("id")->on("teams")->onDelete("cascade")->onUpdate("cascade");
             $table->foreign("winner_id")->references("id")->on("teams")->onDelete("cascade")->onUpdate("cascade");
-            $table->foreign("match_id")->references("id")->on("matches")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreign("partido_id")->references("id")->on("partidos")->onDelete("cascade")->onUpdate("cascade");
 
         });
     }
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->dropForeign("team1_id");
             $table->dropForeign("team2_id");
             $table->dropForeign("winner_id");
-            $table->dropForeign("match_id");
+            $table->dropForeign("partido_id");
         });
     }
 };

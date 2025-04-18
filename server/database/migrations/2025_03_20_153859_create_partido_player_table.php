@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('matches', function (Blueprint $table) {
-            $table->enum("round", ["amical","group", "1/8", "1/4", "1/2", "final"])->after("result");
+        Schema::create('partido_player', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger("partido_id");
+            $table->unsignedBigInteger("player_id");
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('matches', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('partido_player');
     }
 };

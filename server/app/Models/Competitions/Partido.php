@@ -19,7 +19,7 @@ class Partido extends Model
      */
 
      protected $guarded = [];
-     protected $table = "matches";
+     
     /**
      * Each match has team 1
      */
