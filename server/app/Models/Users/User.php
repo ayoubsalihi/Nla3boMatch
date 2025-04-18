@@ -67,7 +67,5 @@ class User extends Authenticatable
     /**
      * Every user has many friendships
      */
-    public function friendships(){
-        return $this->belongsToMany(Friendship::class,"friendships");
-    }
+    
 }
