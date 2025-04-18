@@ -3,6 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\Users\AdminSeeder;
+use Database\Seeders\Users\ChatSeeder;
+use Database\Seeders\Users\FriendshipSeeder;
+use Database\Seeders\Users\GoalkeeperSeeder;
+use Database\Seeders\Users\InsidePlayerSeeder;
+use Database\Seeders\Users\MessageSeeder;
 use Database\Seeders\Users\PlayerSeeder;
 use Database\Seeders\Users\UserSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,9 +21,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        /**
+         * The seeders would be called in order by folders structure
+         * Users
+         * Terrains
+         * Teams
+         * Competitions
+         * Posts
+         */
         $this->call([
             UserSeeder::class,
             PlayerSeeder::class,
+            MessageSeeder::class,
+            InsidePlayerSeeder::class,
+            GoalkeeperSeeder::class,
+            FriendshipSeeder::class,
+            ChatSeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }
