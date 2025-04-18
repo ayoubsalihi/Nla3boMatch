@@ -15,8 +15,4 @@ class Admin extends Model
     /**
      * The roles should be stored in the database , and each admin has many roles
      */
-    public function roles(){
-        return $this->belongsToMany(Role::class,'admin_role')
-                    ->withPivot('type');
-    }
 }

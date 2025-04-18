@@ -6,6 +6,9 @@ use App\Models\User;
 use Database\Seeders\Competitions\CompetitionSeeder;
 use Database\Seeders\Competitions\GroupSeeder;
 use Database\Seeders\Competitions\PartidoSeeder;
+use Database\Seeders\Posts\ImageSeeder;
+use Database\Seeders\Posts\PostSeeder;
+use Database\Seeders\Posts\VideoSeeder;
 use Database\Seeders\Teams\TeamChatSeeder;
 use Database\Seeders\Teams\TeamSeeder;
 use Database\Seeders\Terrains\AcademySeeder;
@@ -63,6 +66,12 @@ class DatabaseSeeder extends Seeder
             CompetitionSeeder::class,
             GroupSeeder::class,
             PartidoSeeder::class,
+        ]);
+
+        $this->call([
+            ImageSeeder::class,
+            PostSeeder::class,
+            VideoSeeder::class,
         ]);
     }
 }
