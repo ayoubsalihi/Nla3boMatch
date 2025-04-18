@@ -35,7 +35,7 @@ class ReservationFactory extends Factory
             'reservable_id' => $reservable->id,
             'start_time' => $start,
             'end_time' => $end,
-            'status' => $this->faker->randomElement(['pending', 'confirmed', 'canceled']),
+            'status' => $this->faker->randomElement(['en attente', 'confirmé', 'abandonnée']),
         ];
     }
 }
