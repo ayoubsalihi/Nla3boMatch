@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\Competitions\CompetitionSeeder;
+use Database\Seeders\Competitions\GroupSeeder;
+use Database\Seeders\Competitions\PartidoSeeder;
 use Database\Seeders\Teams\TeamChatSeeder;
 use Database\Seeders\Teams\TeamSeeder;
 use Database\Seeders\Terrains\AcademySeeder;
@@ -54,6 +57,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TeamChatSeeder::class,
             TeamSeeder::class,
+        ]);
+
+        $this->call([
+            CompetitionSeeder::class,
+            GroupSeeder::class,
+            PartidoSeeder::class,
         ]);
     }
 }
