@@ -2,50 +2,68 @@
 
 namespace Database\Seeders\Teams;
 
+use App\Models\Competitions\Competition;
 use App\Models\Competitions\Group;
 use App\Models\Competitions\Partido;
 use App\Models\Teams\Team;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TeamSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
+        $competitions = Competition::all();
+        if ($competitions->isEmpty()) {
+            $competitions = Competition::factory()->count(3)->create();
+        }
+        $teams = Team::factory()->count(20)->create();
+        $competitions->each(function ($competition) use ($teams) {
+            $teamsToAttach = $teams->random(rand(6, 10));
+            $competition->teams("competition_team")->attach($teamsToAttach);
+        });
         $groups = Group::all();
         if ($groups->isEmpty()) {
-            $groups = Group::factory()->count(4)->create();
+            $groups = Group::factory()->count(6)->create([
+                'competition_id' => $competitions->random()->id
+            ]);
         }
 
+        $teams->each(function ($team) use ($groups) {
+            $eligibleGroups = $groups->whereIn('competition_id', 
+                $team->competitions->pluck('id')
+            );
+            
+            if ($eligibleGroups->isNotEmpty()) {
+                $gf = rand(0, 15);
+                $ga = rand(0, 10);
+                
+                $team->groups()->attach(
+                    $eligibleGroups->random()->id,
+                    [
+                        'points' => rand(0, 30),
+                        'GF' => $gf,
+                        'GA' => $ga,
+                        'GD' => $gf - $ga
+                    ]
+                );
+            }
+        });
         $partidos = Partido::all();
         if ($partidos->isEmpty()) {
-            $partidos = Partido::factory()->count(30)->create();
+            $partidos = Partido::factory()->count(30)->create([
+                'competition_id' => $competitions->random()->id
+            ]);
         }
-        
-        $teams = Team::factory()->count(20)->create();
-        $teams->each(function ($team) use ($groups) {
-            $selectedGroups = $groups->random(rand(1, 2));
-            
-            $groupPivotData = [];
-            foreach ($selectedGroups as $group) {
-                $gf = rand(0, 10);
-                $ga = rand(0, 8);
-                $groupPivotData[$group->id] = [
-                    'points' => rand(0, 30),
-                    'GF' => $gf,
-                    'GA' => $ga,
-                    'GD' => $gf - $ga,
-                ];
-            }
-            
-            $team->groups()->attach($groupPivotData);
-        });
+
         $partidos->each(function ($partido) use ($teams) {
-            $selectedTeams = $teams->random(2);
-            $partido->teams("partido_team")->attach($selectedTeams);
+            $competitionTeams = $teams->filter(function ($team) use ($partido) {
+                return $team->competitions->contains($partido->competition_id);
+            });
+            
+            if ($competitionTeams->count() >= 2) {
+                $selectedTeams = $competitionTeams->random(2);
+                $partido->teams("partido_team");
+            }
         });
     }
 }
