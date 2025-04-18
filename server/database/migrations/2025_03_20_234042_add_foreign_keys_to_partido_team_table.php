@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('match_team', function (Blueprint $table) {
-            $table->foreign("match_id")->references("id")->on("matches")->onDelete("cascade")->onUpdate("cascade");
+        Schema::table('partido_team', function (Blueprint $table) {
+            $table->foreign("partido_id")->references("id")->on("partidos")->onDelete("cascade")->onUpdate("cascade");
             $table->foreign("team_id")->references("id")->on("teams")->onDelete("cascade")->onUpdate("cascade");
         });
     }
@@ -22,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('match_team', function (Blueprint $table) {
-            $table->dropForeign("match_id");
+        Schema::table('partido_team', function (Blueprint $table) {
+            $table->dropForeign("partido_id");
             $table->dropForeign("team_id");
         });
     }

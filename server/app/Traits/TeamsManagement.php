@@ -14,7 +14,7 @@ trait TeamsManagement
      * 3. Partido
      */
 
-     public function teams(){
-        return $this->belongsToMany(Team::class);
+     public function teams(string $pivot){
+        return $this->belongsToMany(Team::class, $pivot);
     }
 }

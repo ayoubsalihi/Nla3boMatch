@@ -23,7 +23,7 @@ class PostFactory extends Factory
             "description" => $this->faker->sentence,
             "type_post" => $this->faker->sentence,
             "user_id" =>User::inRandomOrder()->first()->id ?? User::factory()->create()->id,
-            "match_id" =>Partido::inRandomOrder()->first()->id ?? partido::factory()->create()->id,
+            "partido_id" =>Partido::inRandomOrder()->first()->id ?? partido::factory()->create()->id,
             "competition_id" =>Competition::inRandomOrder()->first()->id ?? Competition::factory()->create()->id,
         ];
     }

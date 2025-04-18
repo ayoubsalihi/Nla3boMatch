@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger("team1_id");
             $table->unsignedBigInteger("team2_id");
             $table->unsignedBigInteger("winner_id")->nullable();
-            $table->unsignedBigInteger("match_id");
+            $table->unsignedBigInteger("partido_id");
             $table->unsignedBigInteger("competition_id");
             $table->timestamps();
         });

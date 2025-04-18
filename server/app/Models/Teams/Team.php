@@ -3,6 +3,8 @@
 namespace App\Models\Teams;
 
 use App\Models\Competitions\Competition;
+use App\Models\Competitions\Group;
+use App\Models\Competitions\Partido;
 use App\Models\Terrains\Reservation;
 use App\Models\Terrains\Terrain;
 use App\Models\Users\Player;
@@ -41,6 +43,14 @@ class Team extends Model
      */
     public function team_chat(){
         return $this->hasOne(TeamChat::class);
+    }
+
+    public function matches(){
+        return $this->belongsToMany(Partido::class);
+    }
+
+    public function groups(){
+        return $this->belongsToMany(Group::class);
     }
 
     
