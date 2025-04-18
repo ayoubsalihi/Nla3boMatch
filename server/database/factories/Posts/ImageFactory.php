@@ -18,9 +18,9 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         return [
-            "intitule_video" => $this->faker->sentence(3),
+            "intitule" => $this->faker->sentence(3),
             "description" => $this->faker->paragraph(3),
-            "post_id" => Post::inRandmOrder()->first()->id ?? Post::factory()->create()->id,
+            "post_id" => Post::inRandomOrder()->first()->id ?? Post::factory()->create()->id,
         ];
     }
 }
