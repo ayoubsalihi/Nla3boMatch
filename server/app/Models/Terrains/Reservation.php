@@ -23,7 +23,7 @@ class Reservation extends Model
      * Each reservation should be associated with a terrain
      */
     public function terrain(){
-        return $this->hasOne(Terrain::class);
+        return $this->belongsTo(Terrain::class);
     }
     
 }
