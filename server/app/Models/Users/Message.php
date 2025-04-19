@@ -2,6 +2,7 @@
 
 namespace App\Models\Users;
 
+use App\Models\Teams\TeamChat;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,9 +22,7 @@ class Message extends Model
         return $this->belongsTo(User::class,"sender_id");
     }
 
-    public function reciever(){
-        return $this->belongsTo(User::class,"reciever_id");
+    public function teamchat(){
+        return $this->belongsTo(TeamChat::class,"team_chat_id");
     }
-
-    // team_chat is remaining
 }

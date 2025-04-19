@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Teams\TeamChat;
 use App\Models\Users\Message;
+use App\Models\Users\User;
 
 test("Message has one chat",function(){
     $message = Message::factory()->create();
@@ -12,7 +14,12 @@ test("Message has one sender",function(){
     expect($message->sender->id)->toBe($message->sender_id);
 });
 
-test("Message has one reciever",function(){
-    $message = Message::factory()->create();
-    expect($message->reciever->id)->toBe($message->reciever_id);
+test("Message has many team chat",function(){
+    $teamChat = TeamChat::factory()->create();
+    $message = Message::factory()->create(
+        [
+            "team_chat_id" => $teamChat->id,
+        ]
+    );
+    expect($message->teamchat->id)->toBe($message->team_chat_id);    
 });
