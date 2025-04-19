@@ -62,10 +62,8 @@ class User extends Authenticatable
      * Every user have many chats
      */
     public function chats(){
-        return $this->hasMany(Chat::class);
+        return $this->hasMany(Chat::class,"user1_id","id")
+            ->orWhere("user2_id","=",$this->id);
     }
-    /**
-     * Every user has many friendships
-     */
     
 }
