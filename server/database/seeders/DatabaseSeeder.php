@@ -46,7 +46,6 @@ class DatabaseSeeder extends Seeder
             MessageSeeder::class,
             InsidePlayerSeeder::class,
             GoalkeeperSeeder::class,
-            FriendshipSeeder::class,
             ChatSeeder::class,
             AdminSeeder::class,
         ]);
