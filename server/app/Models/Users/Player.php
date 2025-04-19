@@ -9,24 +9,28 @@ use App\Models\Teams\Team;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\IsUser;
-use App\Traits\TeamsManagement;
 
 class Player extends Model
 {
     /** @use HasFactory<\Database\Factories\PlayerFactory> */
-    use HasFactory , IsUser , TeamsManagement;
+    use HasFactory , IsUser ;
     protected $guarded = [];
     /**
      * A player could be a goalkeeper
      */
     public function goalkeeper(){
-        return $this->belongsTo(Goalkeeper::class);
+        return $this->hasOne(Goalkeeper::class);
     }
     /**
      * A player can be a D/M/F
      */
     public function insideplayer(){
-        return $this->belongsTo(InsidePlayer::class);
+        return $this->hasOne(InsidePlayer::class);
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
     }
 
     public function competitions()
