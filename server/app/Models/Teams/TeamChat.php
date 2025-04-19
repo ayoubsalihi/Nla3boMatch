@@ -13,7 +13,7 @@ class TeamChat extends Model
     protected $guarded =[];
     // each team chat belongs to a specific team
     public function team(){
-        return $this->hasOne(Team::class);
+        return $this->belongsTo(Team::class);
     }
 
     public function messages(){
