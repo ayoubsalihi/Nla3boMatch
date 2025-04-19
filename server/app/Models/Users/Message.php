@@ -13,12 +13,16 @@ class Message extends Model
 
     // each message belongs to one chat
     public function chat(){
-        return $this->hasOne(Chat::class);
+        return $this->belongsTo(Chat::class);
     } 
 
     // each message has a sender
     public function sender(){
-        return $this->hasOne(User::class,"sender_id");
+        return $this->belongsTo(User::class,"sender_id");
+    }
+
+    public function reciever(){
+        return $this->belongsTo(User::class,"reciever_id");
     }
 
     // team_chat is remaining
