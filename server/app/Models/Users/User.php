@@ -65,5 +65,9 @@ class User extends Authenticatable
         return $this->hasMany(Chat::class,"user1_id","id")
             ->orWhere("user2_id","=",$this->id);
     }
+
+    public function getOwner(){
+        return $this->admin ?? $this->player;
+    }
     
 }
