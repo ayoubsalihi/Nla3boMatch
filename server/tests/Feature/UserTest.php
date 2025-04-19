@@ -7,7 +7,11 @@ use App\Models\Users\User;
 
 /**
  * The test is for User model
- * the test will take 
+ * the test will take charge of 3 methods
+ * 1. User has one admin - admin()
+ * 2. User has one player - player()
+ * 3. User has many chats - chats()
+ * 4. To get the owner - getOwner()
  */
 
 test("User has one admin",function(){
@@ -32,4 +36,15 @@ test("User has many chats",function(){
     ]);
     $this->assertInstanceOf(Chat::class, $chats->first());
     expect($user->chats->count())->toBe(3);
+});
+
+test("Get the owner of user",function(){
+    $user = User::factory()->create();
+    $admin = Admin::factory()->create(['user_id'=>$user->id]);
+    expect($user->getOwner()->id)->toBe($admin->id);
+
+    $user = User::factory()->create();
+    $player = Player::factory()->create([
+        "user_id" => $user->id,
+    ]);
 });
