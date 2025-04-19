@@ -11,6 +11,6 @@ trait PlayersManagement
      */
 
      public function player(){
-        return $this->hasOne(Player::class);
+        return $this->belongsTo(Player::class);
     }
 }

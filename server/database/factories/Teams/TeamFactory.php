@@ -24,6 +24,7 @@ class TeamFactory extends Factory
             "size_team" => $this->faker->word(),
             "responsable" => $this->faker->word(),
             "terrain_id" => Terrain::inRandomOrder()->first()->id ?? Terrain::factory()->create()->id,
+            
         ];
     }
 }

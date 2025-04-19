@@ -22,7 +22,7 @@ class Team extends Model
     }
     // each team contains many players
     public function players(){
-        return $this->belongsToMany(Player::class,"player_team");
+        return $this->hasMany(Player::class);
     }
     /**
      * Get the terrain reserved by team
