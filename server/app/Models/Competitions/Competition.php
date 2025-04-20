@@ -21,4 +21,8 @@ class Competition extends Model
     public function matches(){
         return $this->hasMany(Partido::class);
     } 
+
+    public function groups(){
+        return $this->hasMany(Group::class);
+    }
 }
