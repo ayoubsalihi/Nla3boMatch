@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use App\Models\Users\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,7 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return response()->json($users);
     }
 
     /**
@@ -20,7 +22,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
