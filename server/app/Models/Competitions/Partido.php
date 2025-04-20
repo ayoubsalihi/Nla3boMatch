@@ -24,19 +24,19 @@ class Partido extends Model
      * Each match has team 1
      */
     public function team1(){
-        return $this->hasOne(Team::class,"team1_id");
+        return $this->belongsTo(Team::class,"team1_id");
     }
     /**
      * Each match has team 2
      */
     public function team2(){
-        return $this->hasOne(Team::class,"team2_id");
+        return $this->belongsTo(Team::class,"team2_id");
     }
     /**
      * Each match has a terrain to be played in
      */
     public function terrain(){
-        return $this->hasOne(Terrain::class);
+        return $this->belongsTo(Terrain::class);
     }
     /**
      * A match could be part of a competition
@@ -64,26 +64,28 @@ class Partido extends Model
      */
     // this method is used to get the matches that are in the knockout stage
     public function scopeKnockouts($query){
-    return $query->whereNull('group_id')->whereNotNull('stage');
+        return $query->where('round', '!=', 'group_stage');
     }
 
     // this method is used to get the matches that are in the group stage
     public function scopeGroupMatches($query){
-        return $query->whereNotNull('group_id');
+        return $query->where('round' , 'group_stage');
     }
 
     /**
      * this method is used to get the Knockout matches
      */
-    public static function getKnockoutMatches($competitionId){
-        return self::knockouts()->where('competition_id', $competitionId)->orderBy('round_number')->get();
+    public static function getKnockoutMatches($query, $competitionId){
+        return $query->where('round', '!=', 'group_stage')
+            ->where('competition_id', $competitionId)
+            ->get();
     }
 
     /**
      * this method is used to get the matches by rounds
      */
-    public static function getMatchesByStage($competitionId, $round){   
-        return self::knockouts()
+    public static function getMatchesByStage($query, $competitionId, $round){   
+        return $query
             ->where('competition_id', $competitionId)
             ->where('round', $round)
             ->get();

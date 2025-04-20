@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('partidos', function (Blueprint $table) {
-            $table->enum("round", ["amical","group", "1/8", "1/4", "1/2", "final"])->after("result");
+            $table->string("round")->after("result");
         });
     }
 
