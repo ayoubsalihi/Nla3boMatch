@@ -14,7 +14,7 @@ class Competition extends Model
     protected $guarded = [];
     // a competition could have many posts
     public function posts(){
-        return $this->belongsToMany(Post::class);
+        return $this->hasMany(Post::class);
     }
 
     // a competition take charge of many matches
