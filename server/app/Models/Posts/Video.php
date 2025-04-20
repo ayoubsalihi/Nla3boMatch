@@ -2,18 +2,13 @@
 
 namespace App\Models\Posts;
 
+use App\Traits\PostsManagement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
     /** @use HasFactory<\Database\Factories\VideoFactory> */
-    use HasFactory;
+    use HasFactory , PostsManagement;
     protected $guarded = [];
-    /**
-     * A video belongs to only one post
-     */
-    public function post(){
-        return $this->hasOne(Post::class);
-    }
 }
