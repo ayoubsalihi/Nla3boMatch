@@ -48,7 +48,6 @@ class UserController extends Controller
         $user->update($request->all());
         return response()->json([
             'message' => 'User update successfully',
-            'user'=> $user
         ]);
 
     }
