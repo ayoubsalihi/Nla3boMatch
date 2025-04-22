@@ -4,14 +4,14 @@ namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePlayerRequest extends FormRequest
+class UpdateAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,8 +22,7 @@ class StorePlayerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "poste" => ["required", "string" , "max:255"],
-            "user_id" => ["required", "integer" , "exists:users,id","unique:admins,user_id"],
+            //
         ];
     }
 }
