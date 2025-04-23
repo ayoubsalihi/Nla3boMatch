@@ -11,7 +11,7 @@ class UpdateInsidePlayerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class UpdateInsidePlayerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'pace' => 'required|integer|min:0|max:100',
+            'dribbling' => 'required|integer|min:0|max:100',
+            'shooting' => 'required|integer|min:0|max:100',
+            'defending' => 'required|integer|min:0|max:100',
+            'passing' => 'required|integer|min:0|max:100',
+            'physical' => 'required|integer|min:0|max:100',
         ];
     }
 }
