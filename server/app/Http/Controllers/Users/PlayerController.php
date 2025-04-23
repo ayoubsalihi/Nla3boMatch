@@ -44,7 +44,7 @@ class PlayerController extends Controller
      */
     public function update(UpdatePlayerRequest $request, Player $player)
     {
-        $player->update($request->all());
+        $player->update($request->validated());
         return response()->json([
             "message" => "Player have been updated successfully",
             "player" => $player,
