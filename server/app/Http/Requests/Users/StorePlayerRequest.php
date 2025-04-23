@@ -23,7 +23,7 @@ class StorePlayerRequest extends FormRequest
     {
         return [
             "poste" => ["required", "string" , "max:255"],
-            "user_id" => ["required", "integer" , "exists:users,id","unique:admins,user_id"],
+            "user_id" => ["required", "integer" , "exists:users,id","unique:players,user_id"],
         ];
     }
 }
