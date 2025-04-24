@@ -3,47 +3,41 @@
 namespace App\Http\Controllers\Terrains;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Terrains\StoreTerrainRequest;
+use App\Http\Requests\Terrains\UpdateTerrainRequest;
+use App\Models\Terrains\Terrain;
 
 class TerrainController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $terrains = Terrain::all();
+        return view('terrains.index', compact('terrains'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreTerrainRequest $request)
     {
-        //
+        $terrain = Terrain::create($request->validated());
+        return response()->json($terrain, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $terrain = Terrain::findOrFail($id);
+        return view('terrains.show', compact('terrain'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateTerrainRequest $request, $id)
     {
-        //
+        $terrain = Terrain::findOrFail($id);
+        $terrain->update($request->validated());
+        return response()->json($terrain);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $terrain = Terrain::findOrFail($id);
+        $terrain->delete();
+        return response()->json(['message' => 'Terrain supprimé avec succès.']);
     }
 }

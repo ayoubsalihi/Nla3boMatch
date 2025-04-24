@@ -15,9 +15,9 @@ class Post extends Model
     protected $guarded = [];
 
     // each post have been released by a user
-    public function user(){
-        return $this->hasOne(User::class);
-    }
+    public function user() {
+        return $this->belongsTo(User::class);
+    }    
 
     // each post could be related to a match
     public function match(){

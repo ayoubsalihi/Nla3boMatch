@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Terrains;
+namespace App\Http\Requests\Competitions;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TerrainRequest extends FormRequest
+class UpdatePartidoTeamRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,10 +19,12 @@ class TerrainRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            'partido_id' => 'sometimes|required|exists:partidos,id',
+            'team_id' => 'sometimes|required|exists:teams,id',
         ];
     }
+    
 }
