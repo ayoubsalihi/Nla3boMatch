@@ -46,7 +46,7 @@ class MessageController extends Controller
     {
         $message->update($request->validated());
         return response()->json([
-            "message" => "MEssage updated successfully",
+            "message" => "Message updated successfully",
             "your mesage" => $message,
         ]);
     }
