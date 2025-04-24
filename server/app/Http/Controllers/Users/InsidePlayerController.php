@@ -16,6 +16,7 @@ class InsidePlayerController extends Controller
     public function index()
     {
         $InsidePlayer = InsidePlayer::all();
+        return response()->json($InsidePlayer);
     }
 
     /**
