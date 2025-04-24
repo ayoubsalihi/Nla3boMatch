@@ -1,49 +1,42 @@
 <?php
 
-namespace App\Http\Controllers\Competitions;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Competitions\StoreCompetitionRequest;
+use App\Http\Requests\Competitions\UpdateCompetitionRequest;
+use App\Models\Competitions\Competition;
 
 class CompetitionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $competitions = Competition::all();
+        return response()->json($competitions);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show($id)
     {
-        //
+        $competition = Competition::findOrFail($id);
+        return response()->json($competition);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function store(StoreCompetitionRequest $request)
     {
-        //
+        $competition = Competition::create($request->validated());
+        return response()->json(['message' => 'competition bien enregistrer','competition' => $competition]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateCompetitionRequest $request, $id)
     {
-        //
+        $competition = Competition::findOrFail($id);
+        $competition->update($request->validated());
+        return response()->json(['message' => 'competition bien modifier','competition' => $competition]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $competition = Competition::findOrFail($id);
+        $competition->delete();
+        return response()->json(['message' => 'competition bien supprimer']);
     }
 }

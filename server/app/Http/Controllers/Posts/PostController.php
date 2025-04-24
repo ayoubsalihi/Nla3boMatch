@@ -3,47 +3,67 @@
 namespace App\Http\Controllers\Posts;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Posts\StorePostRequest;
+use App\Http\Requests\Posts\UpdatePostRequest;
+use App\Models\Posts\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
+{
+    $posts = Post::all();
+    return view('posts.index', compact('posts'));
+}
+
+public function show($id)
+{
+    $post = Post::findOrFail($id);
+    return view('posts.show', compact('post'));
+}
+
+    public function store(StorePostRequest $request)
     {
-        //
+        $post = Post::create([
+            'description' => $request->description,
+            'type_post' => $request->type_post,
+            'user_id' => $request->user_id,
+            'partido_id' => $request->partido_id,
+            'competition_id' => $request->competition_id,
+        ]);
+
+        return response()->json([
+            'message' => 'Post bien enregistrer',
+            'data' => $post
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(UpdatePostRequest $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $post->update([
+            'description' => $request->description,
+            'type_post' => $request->type_post,
+            'user_id' => $request->user_id,
+            'partido_id' => $request->partido_id,
+            'competition_id' => $request->competition_id,
+        ]);
+
+        return response()->json([
+            'message' => 'Post bien modifier',
+            'data' => $post
+        ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $post = Post::findOrFail($id);
+        $post->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json([
+            'message' => 'Post bien supprimer'
+        ], 200);
     }
 }
