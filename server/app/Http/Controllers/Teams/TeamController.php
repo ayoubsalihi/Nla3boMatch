@@ -24,7 +24,7 @@ class TeamController extends Controller
      */
     public function store(StoreTeamRequest $request)
     {
-        $team->create($request->validated());
+        $team = Team::create($request->validated());
         return response()->json([
             "message" => "Team created successfully",
             "team" => $team
@@ -57,8 +57,5 @@ class TeamController extends Controller
     public function destroy(Team $team)
     {
         $team->delete();
-        return response()->json([
-            "message" => "Team deleted successfully",
-        ]);
     }
 }
