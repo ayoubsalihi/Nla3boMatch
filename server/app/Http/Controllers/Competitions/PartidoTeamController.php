@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Competitions;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Competitions\StorePartidoTeamRequest;
 use App\Http\Requests\Competitions\UpdatePartidoTeamRequest;
 use App\Models\Competitions\Compete;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Competitions;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Competitions\StoreCompetitionRequest;
 use App\Http\Requests\Competitions\UpdateCompetitionRequest;
 use App\Models\Competitions\Competition;
@@ -14,9 +15,8 @@ class CompetitionController extends Controller
         return response()->json($competitions);
     }
 
-    public function show($id)
+    public function show(Competition $competition)
     {
-        $competition = Competition::findOrFail($id);
         return response()->json($competition);
     }
 
@@ -26,16 +26,14 @@ class CompetitionController extends Controller
         return response()->json(['message' => 'competition bien enregistrer','competition' => $competition]);
     }
 
-    public function update(UpdateCompetitionRequest $request, $id)
+    public function update(UpdateCompetitionRequest $request,Competition $competition)
     {
-        $competition = Competition::findOrFail($id);
         $competition->update($request->validated());
         return response()->json(['message' => 'competition bien modifier','competition' => $competition]);
     }
 
-    public function destroy($id)
+    public function destroy(Competition $competition)
     {
-        $competition = Competition::findOrFail($id);
         $competition->delete();
         return response()->json(['message' => 'competition bien supprimer']);
     }

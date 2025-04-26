@@ -14,42 +14,26 @@ class PostController extends Controller
     public function index()
 {
     $posts = Post::all();
-    return view('posts.index', compact('posts'));
+    return response()->json($posts);
 }
 
-public function show($id)
+public function show(Post $post)
 {
-    $post = Post::findOrFail($id);
-    return view('posts.show', compact('post'));
+    return response()->json($post);
 }
 
     public function store(StorePostRequest $request)
     {
-        $post = Post::create([
-            'description' => $request->description,
-            'type_post' => $request->type_post,
-            'user_id' => $request->user_id,
-            'partido_id' => $request->partido_id,
-            'competition_id' => $request->competition_id,
-        ]);
-
+        $post = Post::create($request->validated());
         return response()->json([
             'message' => 'Post bien enregistrer',
             'data' => $post
         ], 201);
     }
 
-    public function update(UpdatePostRequest $request, $id)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        $post = Post::findOrFail($id);
-
-        $post->update([
-            'description' => $request->description,
-            'type_post' => $request->type_post,
-            'user_id' => $request->user_id,
-            'partido_id' => $request->partido_id,
-            'competition_id' => $request->competition_id,
-        ]);
+        $post->update($request->validated());
 
         return response()->json([
             'message' => 'Post bien modifier',
@@ -57,9 +41,8 @@ public function show($id)
         ], 200);
     }
 
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        $post = Post::findOrFail($id);
         $post->delete();
 
         return response()->json([

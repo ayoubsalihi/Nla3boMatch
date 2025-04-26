@@ -14,24 +14,18 @@ class VideoController extends Controller
     public function index()
 {
     $videos = Video::all();
-    return view('videos.index', compact('videos'));
+    return response()->json($videos);
 }
 
-public function show($id)
+public function show(Video $video)
 {
-    $video = Video::findOrFail($id);
-    return view('videos.show', compact('video'));
+    return response()->json($video);
 }
 
     
     public function store(StoreVideoRequest $request)
     {
-        $path = $request->file('file')->store('videos', 'public');
-
-        $video = Video::create([
-            'post_id' => $request->post_id,
-            'file_path' => $path, 
-        ]);
+        $video = Video::create($request->validated());
 
         return response()->json([
             'message' => 'Video bien enregistrer',
@@ -39,19 +33,10 @@ public function show($id)
         ], 201);
     }
 
-    public function update(UpdateVideoRequest $request, $id)
+    public function update(UpdateVideoRequest $request, Video $video)
     {
-        $video = Video::findOrFail($id);
-
-        if ($request->hasFile('file')) {
-            Storage::delete($video->file_path);
-
-            $path = $request->file('file')->store('videos', 'public');
-
-            $video->update([
-                'file_path' => $path,
-            ]);
-        }
+        $video->update($request->validated());
+        
 
         return response()->json([
             'message' => 'Video bien modifier',
@@ -59,11 +44,8 @@ public function show($id)
         ], 200);
     }
 
-    public function destroy($id)
+    public function destroy(Video $video)
     {
-        $video = Video::findOrFail($id);
-
-        Storage::delete($video->file_path);
 
         $video->delete();
 

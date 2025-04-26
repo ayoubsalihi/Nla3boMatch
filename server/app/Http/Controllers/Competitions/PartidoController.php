@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Competitions;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Competitions\StorePartidoRequest;
 use App\Http\Requests\Competitions\UpdatePartidoRequest;
 use App\Models\Competitions\Partido;
@@ -10,13 +11,12 @@ class PartidoController extends Controller
 {
     public function index()
     {
-        $matches = Partido::with(['team1', 'team2', 'terrain', 'competition'])->get();
+        $matches = Partido::all();
         return response()->json($matches);
     }
 
-    public function show($id)
+    public function show(Partido $match)
     {
-        $match = Partido::with(['team1', 'team2', 'terrain', 'competition'])->findOrFail($id);
         return response()->json($match);
     }
 
@@ -26,16 +26,14 @@ class PartidoController extends Controller
         return response()->json(['message' => 'Match created successfully', 'match' => $match]);
     }
 
-    public function update(UpdatePartidoRequest $request, $id)
+    public function update(UpdatePartidoRequest $request, Partido $match)
     {
-        $match = Partido::findOrFail($id);
         $match->update($request->validated());
         return response()->json(['message' => 'Match updated successfully', 'match' => $match]);
     }
 
-    public function destroy($id)
+    public function destroy(Partido $match)
     {
-        $match = Partido::findOrFail($id);
         $match->delete();
         return response()->json(['message' => 'Match deleted successfully']);
     }
