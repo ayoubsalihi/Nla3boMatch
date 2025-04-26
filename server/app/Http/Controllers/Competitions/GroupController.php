@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Competitions;
 
 use App\Http\Requests\Competitions\StoreGroupRequest;
 use App\Http\Requests\Competitions\UpdateGroupRequest;
 use App\Models\Competitions\Group;
+use Illuminate\Routing\Controller;
 
 class GroupController extends Controller
 {
     public function index()
     {
-        $groups = Group::with('competition')->get();
+        $groups = Group::all();
         return response()->json($groups);
     }
 
-    public function show($id)
+    public function show(Group $group)
     {
-        $group = Group::with('competition')->findOrFail($id);
         return response()->json($group);
     }
 
@@ -27,16 +27,14 @@ class GroupController extends Controller
         return response()->json(['message' => 'Group bien enregistrer', 'group' => $group]);
     }
 
-    public function update(UpdateGroupRequest $request, $id)
+    public function update(UpdateGroupRequest $request, Group $group)
     {
-        $group = Group::findOrFail($id);
         $group->update($request->validated());
         return response()->json(['message' => 'Group bien modifier', 'group' => $group]);
     }
 
-    public function destroy($id)
+    public function destroy(Group $group)
     {
-        $group = Group::findOrFail($id);
         $group->delete();
         return response()->json(['message' => 'Group bien supprimer']);
     }

@@ -14,21 +14,17 @@ class ImageController extends Controller
     public function index()
    {
     $images = Image::all();
-    return view('images.index', compact('images'));
+    return response()->json($images);
    }
 
-   public function show($id)
-{
-    $image = Image::findOrFail($id);
-    return view('images.show', compact('image'));
-}
+   public function show(Image $image)
+   {
+    return response()->json($image);
+   }
 
     public function store(StoreImageRequest $request)
     {
-        $image = Image::create([
-            'post_id' => $request->post_id,
-            'image_url' => $request->image_url,
-        ]);
+        $image = Image::create($request->validated());
 
         return response()->json([
             'message' => 'Image bien enregistrer',
@@ -36,14 +32,9 @@ class ImageController extends Controller
         ], 201);
     }
 
-    public function update(UpdateImageRequest $request, $id)
+    public function update(UpdateImageRequest $request, Image $image)
     {
-        $image = Image::findOrFail($id);
-
-        $image->update([
-            'post_id' => $request->post_id,
-            'image_url' => $request->image_url,
-        ]);
+        $image->update($request->validated());
 
         return response()->json([
             'message' => 'Image bien modifier',
@@ -51,10 +42,8 @@ class ImageController extends Controller
         ], 200);
     }
 
-    public function destroy($id)
+    public function destroy(Image $image)
     {
-        $image = Image::findOrFail($id);
-
         $image->delete();
 
         return response()->json([
