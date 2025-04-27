@@ -7,6 +7,7 @@ use App\Http\Requests\Teams\StoreTeamChatRequest;
 use App\Http\Requests\User\UpdateChatRequest;
 use App\Models\Teams\TeamChat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TeamChatController extends Controller
 {
@@ -15,6 +16,7 @@ class TeamChatController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny',TeamChat::class);
         $teamChat = TeamChat::all();
         return response()->json($teamChat);
     }
@@ -24,6 +26,7 @@ class TeamChatController extends Controller
      */
     public function store(StoreTeamChatRequest $request)
     {
+        Gate::authorize('create',TeamChat::class);
         $teamChat = teamChat::create($request->validated());
         return response()->json([
             'message' => 'TeamChat created successfully',
@@ -36,6 +39,7 @@ class TeamChatController extends Controller
      */
     public function show(TeamChat $teamChat)
     {
+        Gate::authorize('view',$teamChat);
         return response()->json($teamChat);
     }
 
@@ -44,6 +48,7 @@ class TeamChatController extends Controller
      */
     public function update(UpdateChatRequest $request, TeamChat $teamChat)
     {
+        Gate::authorize('update',$teamChat);
         return response()->json([
             "message" => "TeamChat can't be updated"
         ],403);
@@ -54,6 +59,7 @@ class TeamChatController extends Controller
      */
     public function destroy(TeamChat $teamChat)
     {
+        Gate::authorize('viewAny',$teamChat);
         $teamChat->delete();
         return response()->json([
             'message' => 'TeamChat deleted successfully',

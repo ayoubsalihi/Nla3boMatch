@@ -19,7 +19,7 @@ class PartidoController extends Controller
 
     public function show(Partido $match)
     {
-        Gate::authorize('view',Partido::class);
+        Gate::authorize('view',$match);
         return response()->json($match);
     }
 
@@ -32,14 +32,14 @@ class PartidoController extends Controller
 
     public function update(UpdatePartidoRequest $request, Partido $match)
     {
-        Gate::authorize('update',Partido::class);
+        Gate::authorize('update',$match);
         $match->update($request->validated());
         return response()->json(['message' => 'Match updated successfully', 'match' => $match]);
     }
 
     public function destroy(Partido $match)
     {
-        Gate::authorize('delete',Partido::class);
+        Gate::authorize('delete',$match);
         $match->delete();
         return response()->json(['message' => 'Match deleted successfully']);
     }

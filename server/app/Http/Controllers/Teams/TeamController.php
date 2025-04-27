@@ -7,6 +7,7 @@ use App\Http\Requests\Teams\StoreTeamRequest;
 use App\Http\Requests\Teams\UpdateTeamRequest;
 use App\Models\Teams\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TeamController extends Controller
 {
@@ -15,6 +16,7 @@ class TeamController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny',Team::class);
         $teams = Team::all();
         return response()->json($teams);
     }
@@ -24,6 +26,7 @@ class TeamController extends Controller
      */
     public function store(StoreTeamRequest $request)
     {
+        Gate::authorize('create',Team::class);
         $team = Team::create($request->validated());
         return response()->json([
             "message" => "Team created successfully",
@@ -36,6 +39,7 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
+        Gate::authorize('view',$team);
         return response()->json($team);
     }
 
@@ -44,6 +48,7 @@ class TeamController extends Controller
      */
     public function update(UpdateTeamRequest $request, Team $team)
     {
+        Gate::authorize('update',$team);
         $team->update($request->validated());
         return response()->json([
             "message" => "Team updated successfully",
@@ -56,6 +61,7 @@ class TeamController extends Controller
      */
     public function destroy(Team $team)
     {
+        Gate::authorize('delete',$team);
         $team->delete();
     }
 }

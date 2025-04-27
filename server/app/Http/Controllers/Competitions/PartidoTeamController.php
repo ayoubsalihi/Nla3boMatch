@@ -19,7 +19,7 @@ class PartidoTeamController extends Controller
 
     public function show(PartidoTeam $partidoTeam)
     {
-        Gate::authorize('view',PartidoTeam::class);
+        Gate::authorize('view',$partidoTeam);
         return response()->json($partidoTeam);
     }
 
@@ -32,14 +32,14 @@ class PartidoTeamController extends Controller
 
     public function update(UpdatePartidoTeamRequest $request, PartidoTeam $partidoTeam)
     {
-        Gate::authorize('update',PartidoTeam::class);
+        Gate::authorize('update',$partidoTeam);
         $partidoTeam->update($request->validated()); 
         return response()->json(['message' => 'Relation match-équipe mise à jour avec succès.','data' => $partidoTeam]);
     }
 
     public function destroy(PartidoTeam $partidoTeam)
     {
-        Gate::authorize('delete',PartidoTeam::class);
+        Gate::authorize('delete',$partidoTeam);
         $partidoTeam->delete();
         return response()->json(['message' => 'Relation match-équipe supprimée avec succès.']);
     }

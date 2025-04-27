@@ -19,7 +19,7 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
-        Gate::authorize('view',Group::class);
+        Gate::authorize('view',$group);
         return response()->json($group);
     }
 
@@ -33,14 +33,14 @@ class GroupController extends Controller
 
     public function update(UpdateGroupRequest $request, Group $group)
     {
-        Gate::authorize('update',Group::class);
+        Gate::authorize('update',$group);
         $group->update($request->validated());
         return response()->json(['message' => 'Group bien modifier', 'group' => $group]);
     }
 
     public function destroy(Group $group)
     {
-        Gate::authorize('delete',Group::class);
+        Gate::authorize('delete',$group);
         $group->delete();
         return response()->json(['message' => 'Group bien supprimer']);
     }
