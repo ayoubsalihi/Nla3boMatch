@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Policies\Posts;
+namespace App\Policies\Users;
 
 use App\Helpers\PolicyHelper;
-use App\Models\Posts\Video;
-use App\Models\Users\Player;
 use App\Models\Users\User;
+use App\Models\Users\Admin;
 use Illuminate\Auth\Access\Response;
 
-class VideoPolicy
+class AdminPolicy
 {
     use PolicyHelper;
     /**
@@ -18,20 +17,20 @@ class VideoPolicy
     {
         return $this->permissionsForUser(
             $user,
-            [User::class],
-            "You don't have permission to view any videos.",
+            [Admin::class],
+            "You don't have permission to view any admin.",
         );
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Video $video)
+    public function view(User $user, Admin $admin)
     {
         return $this->permissionsForUser(
             $user,
-            [User::class],
-            "You don't have permission to view this video.",
+            [Admin::class],
+            "You don't have permission to view any admin.",
         );
     }
 
@@ -42,56 +41,56 @@ class VideoPolicy
     {
         return $this->permissionsForUser(
             $user,
-            [Player::class],
-            "You don't have permission to create videos.",
+            [Admin::class],
+            "You don't have permission to create any message.",
         );
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Video $video)
+    public function update(User $user, Admin $admin)
     {
         return $this->permissionsForUser(
             $user,
-            [Player::class],
-            "You don't have permission to update this video.",
+            [Admin::class],
+            "You don't have permission to update any Admin.",
         );
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Video $video)
+    public function delete(User $user, Admin $admin)
     {
         return $this->permissionsForUser(
             $user,
-            [Player::class],
-            "You don't have permission to delete this video.",
+            [Admin::class],
+            "You don't have permission to delete any admin.",
         );
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Video $video)
+    public function restore(User $user, Admin $admin)
     {
         return $this->permissionsForUser(
             $user,
-            [Player::class],
-            "You don't have permission to delete this video.",
-        );;
+            [Admin::class],
+            "You don't have permission to restore any admin.",
+        );
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Video $video)
+    public function forceDelete(User $user, Admin $admin)
     {
         return $this->permissionsForUser(
             $user,
-            [Player::class],
-            "You don't have permission to delete this video.",
+            [Admin::class],
+            "You don't have permission to force delete any admin.",
         );
     }
 }

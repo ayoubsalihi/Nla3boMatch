@@ -5,7 +5,7 @@ namespace App\Models\Users;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Participation extends Model
+class PartidoPlayer extends Model
 {
     /** @use HasFactory<\Database\Factories\ParticipationFactory> */
     use HasFactory;
@@ -14,5 +14,5 @@ class Participation extends Model
      * @abstract model
      */
     protected $guarded = [];
-    protected $table = "match_player";
+    protected $table = "partido_player";
 }
