@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Compete>
  */
-class CompeteFactory extends Factory
+class PartidoTeamFactory extends Factory
 {
     /**
      * Define the model's default state.
