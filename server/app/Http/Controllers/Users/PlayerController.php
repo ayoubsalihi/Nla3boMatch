@@ -7,6 +7,7 @@ use App\Http\Requests\Users\StorePlayerRequest;
 use App\Http\Requests\Users\UpdatePlayerRequest;
 use App\Models\Users\Player;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PlayerController extends Controller
 {
@@ -15,6 +16,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny',Player::class);
         $players = Player::all();
         return response()->json($players);
     }
@@ -24,6 +26,7 @@ class PlayerController extends Controller
      */
     public function store(StorePlayerRequest $request)
     {
+        Gate::authorize('create',Player::class);
         $player = Player::create($request->validated());
         return response()->json([
             "message" => "Player created successfully",
@@ -36,6 +39,7 @@ class PlayerController extends Controller
      */
     public function show(Player $player)
     {
+        Gate::authorize('view', $player);
         return response()->json($player);
     }
 
@@ -44,6 +48,7 @@ class PlayerController extends Controller
      */
     public function update(UpdatePlayerRequest $request, Player $player)
     {
+        Gate::authorize('update',$player);
         $player->update($request->validated());
         return response()->json([
             "message" => "Player have been updated successfully",
@@ -56,6 +61,7 @@ class PlayerController extends Controller
      */
     public function destroy(Player $player)
     {
+        Gate::authorize('delete',$player);
         $player->delete();
         return response()->json([
             "message" => "Player deleted successfully",

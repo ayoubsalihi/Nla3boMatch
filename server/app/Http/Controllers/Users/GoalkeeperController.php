@@ -7,6 +7,7 @@ use App\Http\Requests\Users\StoreGoalkeeperRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Models\Users\Goalkeeper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class GoalkeeperController extends Controller
 {
@@ -15,6 +16,7 @@ class GoalkeeperController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny',Goalkeeper::class);
         $goalkeeper = Goalkeeper::all();
         return response()->json($goalkeeper);
     }
@@ -24,6 +26,7 @@ class GoalkeeperController extends Controller
      */
     public function store(StoreGoalkeeperRequest $request)
     {
+        Gate::authorize('create',Goalkeeper::class);
         $goalkeeper = Goalkeeper::create($request->validated());
         return response()->json([
             'message' => 'Goalkeeeper created successfully',
@@ -36,6 +39,7 @@ class GoalkeeperController extends Controller
      */
     public function show(Goalkeeper $goalkeeper)
     {
+        Gate::authorize('viewAny',$goalkeeper);
         return response()->json($goalkeeper);
     }
 
@@ -44,6 +48,7 @@ class GoalkeeperController extends Controller
      */
     public function update(UpdateUserRequest $request, Goalkeeper $goalkeeper)
     {
+        Gate::authorize('update',$goalkeeper);
         $goalkeeper->update($request->validated());
         return response()->json([
             "message" => "Goalkeeper updated successfully",
@@ -55,6 +60,7 @@ class GoalkeeperController extends Controller
      */
     public function destroy(Goalkeeper $goalkeeper)
     {
+        Gate::authorize('viewAny',$goalkeeper);
         $goalkeeper->delete();
         return response()->json([
             "message" => "Goalkeeper deleted successfully",

@@ -7,6 +7,7 @@ use App\Http\Requests\Users\StoreMessageRequest;
 use App\Http\Requests\Users\UpdateMessageRequest;
 use App\Models\Users\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class MessageController extends Controller
 {
@@ -15,6 +16,7 @@ class MessageController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny',Message::class);
         $messages = Message::all();
         return response()->json($messages);
     }
@@ -24,6 +26,7 @@ class MessageController extends Controller
      */
     public function store(StoreMessageRequest $request)
     {
+        Gate::authorize('create',Message::class);
         $message = Message::create($request->validated());
         return response()->json([
             'message' => 'Message created successfully',
@@ -36,6 +39,7 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
+        Gate::authorize('view',$message);
         return response()->json($message);
     }
 
@@ -44,6 +48,7 @@ class MessageController extends Controller
      */
     public function update(UpdateMessageRequest $request, Message $message)
     {
+        Gate::authorize('update',$message);
         $message->update($request->validated());
         return response()->json([
             "message" => "Message updated successfully",
@@ -56,6 +61,7 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
+        Gate::authorize('delete',$message);
         $message->delete();
         return response()->json([
             "success message" => "message deleted successfully",

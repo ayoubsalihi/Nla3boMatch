@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\StoreAdminRequest;
 use App\Models\Users\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AdminController extends Controller
 {
@@ -14,6 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny',Admin::class);
         $admins = Admin::all();
         return response()->json($admins);
     }
@@ -23,6 +25,7 @@ class AdminController extends Controller
      */
     public function store(StoreAdminRequest $request)
     {
+        Gate::authorize('create',Admin::class);
         $admin = Admin::create($request->validated());
         return response()->json([
             "message" => "Admin created successfully",
@@ -35,15 +38,21 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
+        Gate::authorize('view',$admin);
         return response()->json($admin);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Admin $admin)
     {
-        //
+        Gate::authorize('update',$admin);
+        $admin->update($request->validated());
+        return response()->json([
+            "message" => "Admin updated successfully",
+            "admin" => $admin
+        ]);
     }
 
     /**
@@ -51,6 +60,7 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
+        Gate::authorize('viewAny',$admin);
         $admin->delete();
         return response()->json([
             "mesage" => "Admin deleted successfully",

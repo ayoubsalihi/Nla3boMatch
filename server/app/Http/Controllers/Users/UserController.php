@@ -7,6 +7,7 @@ use App\Http\Requests\Users\StoreUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Models\Users\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -15,6 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        Gate::authorize('create',User::class);
         $users = User::all();
         return response()->json($users);
     }
@@ -24,6 +26,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        Gate::authorize('create',User::class);
         $user = User::create($request->validated());
 
         return response()->json([
@@ -37,6 +40,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        Gate::authorize('view',$user);
         return response()->json($user);
     }
 
@@ -45,6 +49,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        Gate::authorize('update',$user);
         $user->update($request->validated());
         return response()->json([
             'message' => 'User update successfully',
@@ -57,6 +62,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        Gate::authorize('delete',$user);
         $user->delete();
         return response()->json([
             'message'=> 'User deleted successfully',

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateInsidePlayerRequest;
 use App\Http\Requests\Users\StoreInsidePlayerRequest;
 use App\Models\Users\InsidePlayer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class InsidePlayerController extends Controller
 {
@@ -15,6 +16,7 @@ class InsidePlayerController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny',InsidePlayer::class);
         $InsidePlayer = InsidePlayer::all();
         return response()->json($InsidePlayer);
     }
@@ -24,6 +26,7 @@ class InsidePlayerController extends Controller
      */
     public function store(StoreInsidePlayerRequest $request)
     {
+        Gate::authorize('create',InsidePlayer::class);
         $InsidePlayer = InsidePlayer::create($request->validated());
         return response()->json([
             "message" => "InsidePlayer created successfully",
@@ -36,6 +39,7 @@ class InsidePlayerController extends Controller
      */
     public function show(InsidePlayer $InsidePlayer)
     {
+        Gate::authorize('view',$InsidePlayer);
         return response()->json($InsidePlayer);
     }
 
@@ -44,6 +48,7 @@ class InsidePlayerController extends Controller
      */
     public function update(UpdateInsidePlayerRequest $request,InsidePlayer $InsidePlayer)
     {
+        Gate::authorize('update',$InsidePlayer);
         $InsidePlayer->update($request->validated());
         return response()->json([
             "message" => 'InsidePleyer updated successfully',
@@ -56,6 +61,7 @@ class InsidePlayerController extends Controller
      */
     public function destroy(InsidePlayer $InsidePlayer)
     {
+        Gate::authorize('delete',$InsidePlayer);
         $InsidePlayer->delete();
         return response()->json([
             "message" => 'InsidePlayer deleted successfully'
