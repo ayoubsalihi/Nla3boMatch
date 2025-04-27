@@ -19,7 +19,7 @@ class CompetitionController extends Controller
 
     public function show(Competition $competition)
     {
-        Gate::authorize('view',Competition::class);
+        Gate::authorize('view',$competition);
         return response()->json($competition);
     }
 
@@ -32,14 +32,14 @@ class CompetitionController extends Controller
 
     public function update(UpdateCompetitionRequest $request,Competition $competition)
     {
-        Gate::authorize('update',Competition::class);
+        Gate::authorize('update',$competition);
         $competition->update($request->validated());
         return response()->json(['message' => 'competition bien modifier','competition' => $competition]);
     }
 
     public function destroy(Competition $competition)
     {
-        Gate::authorize('delete',Competition::class);
+        Gate::authorize('delete',$competition);
         $competition->delete();
         return response()->json(['message' => 'competition bien supprimer']);
     }

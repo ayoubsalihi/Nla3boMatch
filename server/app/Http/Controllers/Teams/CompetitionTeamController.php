@@ -7,14 +7,16 @@ use App\Http\Requests\Competitions\UpdateCompetitionRequest;
 use App\Http\Requests\Teams\StoreCompetitionTeamRequest;
 use App\Models\Teams\CompetitionTeam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
-class CompetitionTeamRequest extends Controller
+class CompetitionTeamController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        Gate::authorize('viewAny',CompetitionTeam::class);
         $competitionTeam = CompetitionTeam::all();
         return response()->json($competitionTeam);
     }
@@ -24,6 +26,7 @@ class CompetitionTeamRequest extends Controller
      */
     public function store(StoreCompetitionTeamRequest $request)
     {
+        Gate::authorize('create',CompetitionTeam::class);
         $competitionTeam = CompetitionTeam::create($request->validated());
         return response()->json([
             'message' => 'CompetitionTeam created successfully',
@@ -36,6 +39,7 @@ class CompetitionTeamRequest extends Controller
      */
     public function show(CompetitionTeam $competitionTeam)
     {
+        Gate::authorize('view',$competitionTeam);
         return response()->json($competitionTeam);
     }
 
@@ -44,6 +48,7 @@ class CompetitionTeamRequest extends Controller
      */
     public function update(UpdateCompetitionRequest $request, CompetitionTeam $competitionTeam)
     {
+        Gate::authorize('update',$competitionTeam);
         $competitionTeam->update($request->validated());
         return response()->json([
             'message' => 'CompetitionTeam updated successfully',
@@ -56,6 +61,7 @@ class CompetitionTeamRequest extends Controller
      */
     public function destroy(CompetitionTeam $competitionTeam)
     {
+        Gate::authorize('delete',$competitionTeam);
         $competitionTeam->delete();
         return response()->json([
             'message' => 'CompetitionTeam deleted successfully',
