@@ -6,39 +6,42 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Terrains\StoreAcademyRequest;
 use App\Http\Requests\Terrains\UpdateAcademyRequest;
 use App\Models\Terrains\Academy;
+use Illuminate\Support\Facades\Gate;
 
 class AcademyController extends Controller
 {
    
     public function index1()
     {
+        Gate::authorize('viewAny',Academy::class);
         $academies = Academy::all();
-        return view('academies.index', compact('academies'));
+        return response()->json($academies);    
     }
 
-    public function show($id)
+    public function show(Academy $academy)
     {
-        $academy = Academy::findOrFail($id);
-        return view('academies.show', compact('academy'));
+        Gate::authorize('view',$academy);
+        return response()->json($academy);
     }
 
     public function store(StoreAcademyRequest $request)
     {
+        Gate::authorize('create',Academy::class);
         $academy = Academy::create($request->validated());
         return response()->json($academy, 201);
     }
 
 
-    public function update(UpdateAcademyRequest $request, $id)
+    public function update(UpdateAcademyRequest $request, Academy $academy)
     {
-        $academy = Academy::findOrFail($id);
+        Gate::authorize('update',Academy::class);
         $academy->update($request->validated());
         return response()->json($academy);
     }
 
-    public function destroy($id)
+    public function destroy(Academy $academy)
     {
-        $academy = Academy::findOrFail($id);
+        Gate::authorize('delete',Academy::class);
         $academy->delete();
         return response()->json(['message' => 'Académie supprimée avec succès.']);
     }
