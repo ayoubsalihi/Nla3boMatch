@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\StoreChatRequest;
 use App\Models\Users\Chat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ChatController extends Controller
 {
@@ -14,6 +15,7 @@ class ChatController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny',Chat::class);
         $chats = Chat::all();
         return response()->json($chats);
     }
@@ -23,6 +25,7 @@ class ChatController extends Controller
      */
     public function store(StoreChatRequest $request)
     {
+        Gate::authorize('create',Chat::class);
         $chat = Chat::create($request->validated());
         return response()->json([
             'message' => 'Chat created successfully',
@@ -35,6 +38,7 @@ class ChatController extends Controller
      */
     public function show(Chat $chat)
     {
+        Gate::authorize('view',$chat);
         return response()->json($chat);
     }
 
@@ -43,6 +47,7 @@ class ChatController extends Controller
      */
     public function update(Request $request, Chat $chat)
     {
+        Gate::authorize('update',$chat);
         //
     }
 
@@ -51,6 +56,7 @@ class ChatController extends Controller
      */
     public function destroy(Chat $chat)
     {
+        Gate::authorize('delete',$chat);
         $chat->delete();
         return response()->json([
             'message' => 'Chat deleted successfully',
