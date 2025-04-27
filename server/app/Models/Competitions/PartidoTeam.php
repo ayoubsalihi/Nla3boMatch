@@ -5,7 +5,7 @@ namespace App\Models\Competitions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Compete extends Model
+class PartidoTeam extends Model
 {
     /** @use HasFactory<\Database\Factories\CompeteFactory> */
     /**
@@ -14,5 +14,5 @@ class Compete extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = "match_team";
+    protected $table = "partido_team";
 }
