@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("poste");
             $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("team_id");
+            $table->unsignedBigInteger("team_id")->nullable();
             $table->timestamps();
         });
     }

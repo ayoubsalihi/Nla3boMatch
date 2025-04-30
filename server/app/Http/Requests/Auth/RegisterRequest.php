@@ -11,7 +11,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             "email" => ["required", "email"],
-            "password" => ["required", "string", "min:8","confirmed"],
+            "password" => ["required", "string", "min:8"],
             "nom" => ["required", "string"],
             "prenom" => ["required", "string"],
             "cin" => ["required", "string"],
@@ -33,7 +33,7 @@ class RegisterRequest extends FormRequest
             "quartier" => ["required", "string"],
 
             // for player
-            "poste" => ["required", "string", "max:255"],
+            "poste" => ["required_if:type_utilisateur,player", "string", "max:255"],
             // if poste = GK
             "diving" => ["required_if:poste,GK", "integer", "between:0,100"],
             "handling" => ["required_if:poste,GK", "integer", "between:0,100"],
@@ -43,12 +43,12 @@ class RegisterRequest extends FormRequest
             "speed" => ["required_if:poste,GK", "integer", "between:0,100"],
 
             // if poste != GK
-            "pace" => ["required_if:poste,!=,GK", "integer", "between:0,100"],
-            "dribbling" => ["required_if:poste,!=,GK", "integer", "between:0,100"],
-            "shooting" => ["required_if:poste,!=,GK", "integer", "between:0,100"],
-            "defending" => ["required_if:poste,!=,GK", "integer", "between:0,100"],
-            "passing" => ["required_if:poste,!=,GK", "integer", "between:0,100"],
-            "physical" => ["required_if:poste,!=,GK", "integer", "between:0,100"],
+            "pace" => ["required_unless:poste,GK", "integer", "between:0,100"],
+            "dribbling" => ["required_unless:poste,GK", "integer", "between:0,100"],
+            "shooting" => ["required_unless:poste,GK", "integer", "between:0,100"],
+            "defending" => ["required_unless:poste,GK", "integer", "between:0,100"],
+            "passing" => ["required_unless:poste,GK", "integer", "between:0,100"],
+            "physical" => ["required_unless:poste,GK", "integer", "between:0,100"],
         ];
     }
 }

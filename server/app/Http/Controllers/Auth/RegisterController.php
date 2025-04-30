@@ -14,7 +14,7 @@ class RegisterController extends Controller
 {
     public function register(RegisterRequest $request){
         $user = User::create([
-            "nom"=> $request->name,
+            "nom"=> $request->nom,
             "email"=> $request->email,
             "password"=> bcrypt($request->password),
             "prenom"=> $request->prenom,
@@ -28,18 +28,24 @@ class RegisterController extends Controller
         $player = Player::create([
             "poste" => $request->poste,
             "user_id" => $user->id,
+            "team_id" => null,
         ]);
 
-        $goalkeeper = Goalkeeper::create([
+        if ($request->poste == "GK") {
+            $goalkeeper = Goalkeeper::create([
             "diving" => $request->diving,
             "reflex" => $request->reflex,
             "handling" => $request->handling,
             "kicking" => $request->kicking,
             "positionning" => $request->positionning,
             "speed" => $request->speed,
+            "player_id" => $player->id,
         ]);
+        }
+        
 
-        $insidePolyaer = InsidePlayer::create([
+        if ($request->poste != "GK") {
+            $insidePlyaer = InsidePlayer::create([
             "pace" => $request->pace,
             "dribbling" => $request->dribbling,
             "shooting" => $request->shooting,
@@ -47,14 +53,26 @@ class RegisterController extends Controller
             "passing" => $request->passing,
             "physical" => $request->physical,
         ]);
+        }
+        
 
-        return response()-> json([
+        if ($request->poste === "GK") {
+            return response()-> json([
             "message" => "User created successfully",
             "user" => $user,
             "player" => $player,
             "goalkeeper" => $goalkeeper,
-            "insidePlayer" => $insidePolyaer,
 
         ],201);
+        } else{
+            return response()-> json([
+                "message" => "User created successfully",
+                "user" => $user,
+                "player" => $player,
+                "inside player" => $insidePlyaer,
+    
+            ],201);
+        }
+        
     }
 }
