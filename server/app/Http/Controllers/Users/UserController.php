@@ -16,7 +16,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        Gate::authorize('create',User::class);
         $users = User::all();
         return response()->json($users);
     }
@@ -26,7 +25,6 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        Gate::authorize('create',User::class);
         $user = User::create($request->validated());
 
         return response()->json([

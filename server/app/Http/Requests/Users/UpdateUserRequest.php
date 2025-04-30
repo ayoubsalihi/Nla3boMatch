@@ -23,7 +23,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             "email" => ["sometimes", "email"],
-            "password" => ["sometimes", "string", "min:8", "confirmed"],
+            "password" => ["sometimes", "string", "min:8"],
             "nom" => ["sometimes", "string"],
             "prenom" => ["sometimes", "string"],
             "cin" => ["sometimes", "string"],

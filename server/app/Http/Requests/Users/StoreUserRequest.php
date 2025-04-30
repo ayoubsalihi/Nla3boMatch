@@ -23,8 +23,8 @@ class StoreUserRequest extends FormRequest
     {
         return [
             "email" => ["required","email"],
-            "password" => ["required","string","min:8","confirmed"],
-            "nom" => ["required","string"],
+            "password" => ["required","string","min:8"],
+            "nom" => ["required","string","max:255"],
             "prenom" => ["required","string"],
             "cin" => ["required","string"],
             "type_utilisateur" => ["required", "string", "in:admin,player"],
