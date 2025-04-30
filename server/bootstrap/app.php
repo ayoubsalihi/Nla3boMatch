@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\CookieMiddleWare;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi(); // For Sanctum
         $middleware->append(\Illuminate\Http\Middleware\HandleCors::class); //enable cors
+        $middleware->alias([
+            "cookie" => CookieMiddleWare::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -26,7 +26,7 @@ class PlayerController extends Controller
      */
     public function store(StorePlayerRequest $request)
     {
-        Gate::authorize('create',Player::class);
+        // Gate::authorize('create',Player::class);
         $player = Player::create($request->validated());
         return response()->json([
             "message" => "Player created successfully",
