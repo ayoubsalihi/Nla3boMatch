@@ -15,11 +15,12 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $this->permissionsForUser(
-            $user,
-            [Admin::class],
-            "You don't have permission to view any user.",
-        );
+        // return $this->permissionsForUser(
+        //     $user,
+        //     [Admin::class],
+        //     "You don't have permission to view any user.",
+        // );
+        return true;
     }
 
     /**
@@ -47,11 +48,12 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $this->permissionsForUser(
-            $user,
-            [User::class],
-            "You don't have permission to update any user.",
-        );
+        // return $this->permissionsForUser(
+        //     $user,
+        //     [User::class],
+        //     "You don't have permission to update any user.",
+        // );
+        return true;
     }
 
     /**

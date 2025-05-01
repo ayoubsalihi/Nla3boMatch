@@ -47,7 +47,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        Gate::authorize('update',$user);
+        // Gate::authorize('update',$user);
         $user->update($request->validated());
         return response()->json([
             'message' => 'User update successfully',
