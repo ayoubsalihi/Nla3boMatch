@@ -14,7 +14,7 @@ class LoginController extends Controller
     $credentials = $request->validated();
 
     if (Auth::attempt($credentials)) {
-        $token = Auth::user()->createToken('sanctum_token')->plainTextToken;
+        $token = Auth::user()->createToken('auth_token')->plainTextToken;
         return response()->json(['message' => 'Success'])
             ->cookie('auth_token', $token, 60 * 24 * 7, null, null, true, true);
     }

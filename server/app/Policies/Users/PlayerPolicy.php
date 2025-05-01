@@ -16,11 +16,12 @@ class PlayerPolicy
      */
     public function viewAny(User $user)
     {
-        return $this->permissionsForUser(
-            $user,
-            [Admin::class],
-            "You don't have permission to view any player.",
-        );
+        // return $this->permissionsForUser(
+        //     $user,
+        //     [User::class],
+        //     "You don't have permission to view any player.",
+        // );
+        return true;
     }
 
     /**

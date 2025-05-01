@@ -16,7 +16,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        Gate::authorize('viewAny',Player::class);
+        // Gate::authorize('viewAny',Player::class);
         $players = Player::all();
         return response()->json($players);
     }
