@@ -33,11 +33,10 @@ Route::post("/login",[LoginController::class,"login"]);
 Route::resource('users',UserController::class)->middleware("cookie","auth:sanctum");
 Route::resource('players',PlayerController::class)->middleware('cookie',"auth:sanctum");
 Route::resource("admins",AdminController::class)->middleware("cookie","auth:sanctum");
-Route::resource("teams",TeamController::class)->middleware("cookie","auth:sanctum");
 Route::resource("inside_players",InsidePlayerController::class)->middleware("cookie","auth:sanctum");
 Route::resource("goalkeepers",GoalkeeperController::class)->middleware("cookie","auth:sanctum");
 Route::resource("messages",MessageController::class)->middleware("cookie","auth:sanctum");
-Route::resource("chat",ChatController::class)->middleware("cookie","auth:sanctum");
+Route::resource("chats",ChatController::class)->middleware("cookie","auth:sanctum");
 
 // Terrains side
 Route::resource("academies",AcademyController::class)->middleware("cookie","auth:sanctum");
@@ -45,7 +44,7 @@ Route::resource("reservations",ReservationController::class)->middleware("cookie
 Route::resource("terrains",TerrainController::class)->middleware("cookie","auth:sanctum");
 
 // Teams side
-Route::resource("team",TeamController::class)->middleware("cookie","auth:sanctum");
+Route::resource("teams",TeamController::class)->middleware("cookie","auth:sanctum");
 Route::resource("team_chats",TeamChatController::class)->middleware("cookie","auth:sanctum");
 Route::resource("competition_team",CompetitionTeamController::class)->middleware("cookie","auth:sanctum");
 Route::resource("group_team",GroupTeamController::class)->middleware("cookie","auth:sanctum");
