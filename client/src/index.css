@@ -1,1 +1,74 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+
+  @layer utilities {
+    @keyframes floating {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate(10px, 10px) rotate(5deg);
+      }
+      50% {
+        transform: translate(-10px, -5px) rotate(-5deg);
+      }
+      75% {
+        transform: translate(5px, -10px) rotate(3deg);
+      }
+    }
+  }
+
+  .animate-floating {
+    animation: floating 30s ease-in-out infinite;
+  }
+  
+
+  @keyframes floatingRotate {
+    0% {
+      transform: translate(-30%, -30%) rotate(0deg) scale(1);
+    }
+    25% {
+      transform: translate(-20%, -40%) rotate(90deg) scale(1.1);
+    }
+    50% {
+      transform: translate(-40%, -20%) rotate(180deg) scale(0.9);
+    }
+    75% {
+      transform: translate(-25%, -35%) rotate(270deg) scale(1.05);
+    }
+    100% {
+      transform: translate(-30%, -30%) rotate(360deg) scale(1);
+    }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 3s linear infinite;
+  }
