@@ -6,8 +6,8 @@ import React from 'react'
 import App from './App'
 import Unauthorized from './components/Errors/ErrorBoundary'
 import ReactDOM from 'react-dom/client'
-import Login from './components/Errors/Login'
 import HeroPage from './components/Public/HeroPage'
+import LoginPage from './Authentication/Home'
 
 const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     element: <App/>,
     children:[
       {index:true, element: <HeroPage /> },
-      {path:'login',element:<Login/>},
+      {path:'login',element:<LoginPage/>},
       {path:'unauthorized',element:<Unauthorized/>},
       {}
     ]
