@@ -20,7 +20,7 @@
     "@types/three": "^0.176.0",
     "aos": "^2.3.4",
     "axios": "^1.9.0",
-    "framer-motion": "^12.9.4",
+    "framer-motion": "^12.11.0",
     "gsap": "^3.13.0",
     "immer": "^10.1.1",
     "js-cookie": "^3.0.5",
@@ -48,6 +48,7 @@
     "globals": "^16.0.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1",
-    "vite": "^6.3.1"
+    "vite": "^6.3.1",
+    "vite-plugin-eslint": "^1.8.1"
   }
 }
