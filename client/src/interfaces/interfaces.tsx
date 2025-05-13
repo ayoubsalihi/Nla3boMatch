@@ -10,6 +10,20 @@ export interface Player{
     updated_at?: string | null;
 }
 
+export interface FormData {
+  role: "player" | "manager" | "";
+  position: "goalkeeper" | "defender" | "midfielder" | "forward" | "";
+  firstName: string;
+  lastName: string;
+  cin: string;
+  city: string;
+  neighborhood: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  skills: Record<string, number>;
+}
+
 export interface User{
     id?: number;
     email: string;
