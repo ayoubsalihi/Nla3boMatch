@@ -9,7 +9,9 @@ export function send_request(method: MethodType, route : Route | string, data ?:
         headers: {
           Authorization: `Bearer ${Cookies.get('sanctum_token')}`
         },
-        withCredentials: true
+        withCredentials: true,
+        baseURL: import.meta.env.VITE_API_BASE_URL,
+        timeout: parseInt(import.meta.env.VITE_DEFAULT_TIMEOUT || '10000')
     };
     
     if(method == 'GET'){
