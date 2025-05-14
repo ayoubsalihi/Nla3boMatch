@@ -11,9 +11,10 @@ interface SignUpFormProps {
   onSwitchToLogin: () => void;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  submitForm: () => void;
 }
 
-const SignUpForm = ({ onSwitchToLogin, setFormData, setCurrentStep }: SignUpFormProps) => {
+const SignUpForm = ({ onSwitchToLogin, setFormData, setCurrentStep, submitForm }: SignUpFormProps) => {
   const [step, setStep] = useState(1);
   const [localFormData, setLocalFormData] = useState<FormData>({
     role: "",
@@ -29,7 +30,6 @@ const SignUpForm = ({ onSwitchToLogin, setFormData, setCurrentStep }: SignUpForm
     skills: {},
   });
 
-  // Sync local form data with parent
   useEffect(() => {
     setFormData(localFormData);
   }, [localFormData, setFormData]);
@@ -52,11 +52,7 @@ const SignUpForm = ({ onSwitchToLogin, setFormData, setCurrentStep }: SignUpForm
         <div className="flex justify-center mb-8">
           {steps.map(({ number, icon: Icon, label }) => (
             <div key={number} className="flex flex-col items-center mx-4">
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                  step >= number ? "bg-green-500 text-white" : "bg-gray-200"
-                }`}
-              >
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= number ? "bg-green-500 text-white" : "bg-gray-200"}`}>
                 {step > number ? <Icon className="w-4 h-4" /> : number}
               </div>
               <span className="text-xs mt-2 text-gray-600">{label}</span>
@@ -98,9 +94,7 @@ const SignUpForm = ({ onSwitchToLogin, setFormData, setCurrentStep }: SignUpForm
             <Step4
               formData={localFormData}
               setFormData={setLocalFormData}
-              submitForm={() => {
-                // Handle form submission after connecting with Db
-              }}
+              submitForm={submitForm}
               prevStep={() => handleStepChange(3)}
             />
           )}
@@ -108,10 +102,7 @@ const SignUpForm = ({ onSwitchToLogin, setFormData, setCurrentStep }: SignUpForm
 
         <p className="mt-6 text-xs text-gray-600 text-center">
           Already have an account?{" "}
-          <button
-            onClick={onSwitchToLogin}
-            className="text-green-500 hover:underline"
-          >
+          <button onClick={onSwitchToLogin} className="text-green-500 hover:underline">
             Log In
           </button>
         </p>
