@@ -4,6 +4,7 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { save_user_account } from "./redux/slices/UserDataSlice";
 import { send_request } from "./helpers/send_request";
 import { RootState } from "./redux/store";
+import axios from "axios";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,37 +14,38 @@ const App: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        // Only check auth if we don't already have a user
-        if (!user) {
-          const response = await send_request('GET', 'current_user');
-          dispatch(save_user_account(response.data));
-        }
-      } catch (error) {
-        console.error('Authentication check failed:', error);
-      } finally {
-        setLoading(false);
+  const checkAuth = async () => {
+    try {
+      // Ensure CSRF cookie is set
+      await axios.get(import.meta.env.VITE_CSRF_URL, { withCredentials: true });
+      
+      // Check auth status
+      const response = await send_request('GET', 'user');
+      dispatch(save_user_account(response.data));
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        Cookies.remove('sanctum_token');
+        navigate('/auth/login');
       }
-    };
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    checkAuth();
-  }, [dispatch, user]); // Add user to dependencies
+  if (!user) checkAuth();
+}, [dispatch, navigate, user]);
 
   useEffect(() => {
-    // Handle redirection based on user state
     if (!loading) {
       const isPublicRoute = ['/', '/auth/login', '/auth/register'].includes(location.pathname);
       const isProtectedRoute = location.pathname.startsWith('/admin') || 
                               location.pathname.startsWith('/user');
 
       if (user) {
-        // Redirect logged-in users from public routes
         if (isPublicRoute) {
-          navigate(user.type_utilisateur === 'admin' ? '/admin' : '/user');
+          navigate(user.type_utilisateur === 'admin' ? '/admin/dashboard' : '/user/dashboard');
         }
       } else {
-        // Redirect unauthenticated users from protected routes
         if (isProtectedRoute) {
           navigate('/auth/login', { state: { from: location } });
         }
