@@ -8,21 +8,23 @@ use App\Models\Users\Goalkeeper;
 use App\Models\Users\InsidePlayer;
 use App\Models\Users\Player;
 use App\Models\Users\User;
+use Auth;
+use Hash;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
     public function register(RegisterRequest $request){
         $user = User::create([
-            "nom"=> $request->nom,
-            "email"=> $request->email,
-            "password"=> bcrypt($request->password),
-            "prenom"=> $request->prenom,
-            "cin"=> $request->cin,
-            "type_utilisateur"=> $request->type_utilisateur,
-            "telephone"=> $request->telephone,
-            "ville_residence"=> $request->ville_residence,
-            "quartier"=> $request->quartier,
+            "nom" => $request->nom,
+            "prenom" => $request->prenom,
+            "email" => $request->email,
+            "password" => Hash::make($request->password),
+            "cin" => $request->cin,
+            "type_utilisateur" => $request->type_utilisateur,
+            "telephone" => $request->telephone,
+            "ville_residence" => $request->ville_residence,
+            "quartier" => $request->quartier,
         ]);
 
         $player = Player::create([
@@ -31,48 +33,38 @@ class RegisterController extends Controller
             "team_id" => null,
         ]);
 
-        if ($request->poste == "GK") {
-            $goalkeeper = Goalkeeper::create([
-            "diving" => $request->diving,
-            "reflex" => $request->reflex,
-            "handling" => $request->handling,
-            "kicking" => $request->kicking,
-            "positionning" => $request->positionning,
-            "speed" => $request->speed,
-            "player_id" => $player->id,
-        ]);
-        }
-        
-
-        if ($request->poste != "GK") {
-            $insidePlyaer = InsidePlayer::create([
-            "pace" => $request->pace,
-            "dribbling" => $request->dribbling,
-            "shooting" => $request->shooting,
-            "defending" => $request->defending,
-            "passing" => $request->passing,
-            "physical" => $request->physical,
-        ]);
-        }
-        
-
+        $positionData = null;
         if ($request->poste === "GK") {
-            return response()-> json([
+            $positionData = Goalkeeper::create([
+                "diving" => $request->diving,
+                "reflex" => $request->reflex,
+                "handling" => $request->handling,
+                "kicking" => $request->kicking,
+                "positionning" => $request->positionning,
+                "speed" => $request->speed,
+                "player_id" => $player->id,
+            ]);
+        } else {
+            $positionData = InsidePlayer::create([
+                "pace" => $request->pace,
+                "dribbling" => $request->dribbling,
+                "shooting" => $request->shooting,
+                "defending" => $request->defending,
+                "passing" => $request->passing,
+                "physical" => $request->physical,
+                "player_id" => $player->id,
+            ]);
+        }
+
+        Auth::login($user);
+
+        return response()->json([
             "message" => "User created successfully",
             "user" => $user,
             "player" => $player,
-            "goalkeeper" => $goalkeeper,
-
-        ],201);
-        } else{
-            return response()-> json([
-                "message" => "User created successfully",
-                "user" => $user,
-                "player" => $player,
-                "inside player" => $insidePlyaer,
-    
-            ],201);
-        }
+            "position_data" => $positionData,
+            "token" => $user->createToken('auth_token')->plainTextToken
+        ], 201);
         
     }
 }

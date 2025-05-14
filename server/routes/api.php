@@ -25,37 +25,41 @@ use App\Http\Controllers\Users\PlayerController;
 use App\Http\Controllers\Users\UserController;
 use Illuminate\Support\Facades\Route;
 
-
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user()->load('player');
+    });
+});
 Route::post("/register",[RegisterController::class,"register"]);
 Route::post("/login",[LoginController::class,"login"]);
 
 // Users side
-Route::resource('users',UserController::class)->middleware("cookie","auth:sanctum");
+Route::resource('users',UserController::class)->middleware(["cookie","auth:sanctum"]);
 Route::resource('players',PlayerController::class)->middleware('cookie',"auth:sanctum");
-Route::resource("admins",AdminController::class)->middleware("cookie","auth:sanctum");
-Route::resource("inside_players",InsidePlayerController::class)->middleware("cookie","auth:sanctum");
-Route::resource("goalkeepers",GoalkeeperController::class)->middleware("cookie","auth:sanctum");
-Route::resource("messages",MessageController::class)->middleware("cookie","auth:sanctum");
-Route::resource("chats",ChatController::class)->middleware("cookie","auth:sanctum");
+Route::resource("admins",AdminController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("inside_players",InsidePlayerController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("goalkeepers",GoalkeeperController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("messages",MessageController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("chats",ChatController::class)->middleware(["cookie","auth:sanctum"]);
 
 // Terrains side
-Route::resource("academies",AcademyController::class)->middleware("cookie","auth:sanctum");
-Route::resource("reservations",ReservationController::class)->middleware("cookie","auth:sanctum");
-Route::resource("terrains",TerrainController::class)->middleware("cookie","auth:sanctum");
+Route::resource("academies",AcademyController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("reservations",ReservationController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("terrains",TerrainController::class)->middleware(["cookie","auth:sanctum"]);
 
 // Teams side
-Route::resource("teams",TeamController::class)->middleware("cookie","auth:sanctum");
-Route::resource("team_chats",TeamChatController::class)->middleware("cookie","auth:sanctum");
-Route::resource("competition_team",CompetitionTeamController::class)->middleware("cookie","auth:sanctum");
-Route::resource("group_team",GroupTeamController::class)->middleware("cookie","auth:sanctum");
+Route::resource("teams",TeamController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("team_chats",TeamChatController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("competition_team",CompetitionTeamController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("group_team",GroupTeamController::class)->middleware(["cookie","auth:sanctum"]);
 
 // Posts side
-Route::resource("posts",PostController::class)->middleware("cookie","auth:sanctum");
-Route::resource("images",ImageController::class)->middleware("cookie","auth:sanctum");
-Route::resource("videos",VideoController::class)->middleware("cookie","auth:sanctum");
+Route::resource("posts",PostController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("images",ImageController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("videos",VideoController::class)->middleware(["cookie","auth:sanctum"]);
 
 // Competitions side
-Route::resource("competitions",CompetitionController::class)->middleware("cookie","auth:sanctum");
-Route::resource("matches",PartidoController::class)->middleware("cookie","auth:sanctum");
-Route::resource("team_match",PartidoTeamController::class)->middleware("cookie","auth:sanctum");
-Route::resource("groups",GroupController::class)->middleware("cookie","auth:sanctum");
+Route::resource("competitions",CompetitionController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("matches",PartidoController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("team_match",PartidoTeamController::class)->middleware(["cookie","auth:sanctum"]);
+Route::resource("groups",GroupController::class)->middleware(["cookie","auth:sanctum"]);

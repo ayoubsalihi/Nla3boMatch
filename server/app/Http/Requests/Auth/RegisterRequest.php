@@ -22,27 +22,26 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email" => ["required", "email"],
-            "password" => ["required", "string", "min:8"],
-            "nom" => ["required", "string"],
-            "prenom" => ["required", "string"],
-            "cin" => ["required", "string"],
-            "type_utilisateur" => ["required", "string", "in:admin,player"],
-            "telephone" => ["required", "string"],
-            "ville_residence" => ["required", "string"],
-            "quartier" => ["required", "string"],
-
-            // for player
+            "nom" => ["required", "string", "max:255"],
+            "prenom" => ["required", "string", "max:255"],
+            "email" => ["required", "string", "email", "max:255", "unique:users"],
+            "password" => ["required", "string", "min:8", "confirmed"],
+            "cin" => ["required", "string", "max:255", "unique:users"],
+            "type_utilisateur" => ["required", "string", "in:player,admin"],
+            "telephone" => ["required", "string", "regex:/^\+212[0-9]{9}$/"],
+            "ville_residence" => ["required", "string", "max:255"],
+            "quartier" => ["required", "string", "max:255"],
             "poste" => ["required_if:type_utilisateur,player", "string", "max:255"],
-            // if poste = GK
+            
+            // Goalkeeper specific
             "diving" => ["required_if:poste,GK", "integer", "between:0,100"],
-            "handling" => ["required_if:poste,GK", "integer", "between:0,100"],
             "reflex" => ["required_if:poste,GK", "integer", "between:0,100"],
+            "handling" => ["required_if:poste,GK", "integer", "between:0,100"],
             "kicking" => ["required_if:poste,GK", "integer", "between:0,100"],
             "positionning" => ["required_if:poste,GK", "integer", "between:0,100"],
             "speed" => ["required_if:poste,GK", "integer", "between:0,100"],
-
-            // if poste != GK
+            
+            // Field player
             "pace" => ["required_unless:poste,GK", "integer", "between:0,100"],
             "dribbling" => ["required_unless:poste,GK", "integer", "between:0,100"],
             "shooting" => ["required_unless:poste,GK", "integer", "between:0,100"],
