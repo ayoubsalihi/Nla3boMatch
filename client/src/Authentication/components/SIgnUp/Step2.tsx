@@ -12,6 +12,7 @@ const Step2 = ({ formData, setFormData, nextStep, prevStep }) => {
     formData.cin.trim() !== '' &&
     formData.city.trim() !== '' &&
     formData.neighborhood.trim() !== '' &&
+    formData.phone.trim() !== '' &&  // Added phone validation
     formData.email.trim() !== '' &&
     formData.password.trim() !== '' &&
     formData.confirmPassword.trim() !== '' &&
@@ -21,6 +22,7 @@ const Step2 = ({ formData, setFormData, nextStep, prevStep }) => {
     <div className="w-full max-w-xs">
       <h2 className="text-xl font-semibold mb-6">Personal Information</h2>
       <div className="space-y-4">
+        {/* Existing fields */}
         <Input
           name="firstName"
           placeholder="First Name"
@@ -55,6 +57,17 @@ const Step2 = ({ formData, setFormData, nextStep, prevStep }) => {
           value={formData.neighborhood}
           onChange={handleChange}
           required
+        />
+        {/* New telephone field */}
+        <Input
+          name="phone"
+          type="tel"
+          placeholder="Phone (+212XXXXXXXXX)"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+          pattern="\+212[0-9]{9}"
+          title="Moroccan phone number format: +212XXXXXXXXX"
         />
         <Input
           name="email"
