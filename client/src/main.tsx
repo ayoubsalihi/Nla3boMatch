@@ -8,7 +8,10 @@ import Unauthorized from './components/Errors/ErrorBoundary'
 import ReactDOM from 'react-dom/client'
 import HeroPage from './components/Public/HeroPage'
 import LoginPage from './Authentication/Home'
-
+import axios from 'axios'
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+axios.defaults.withCredentials = true;
+axios.defaults.timeout = parseInt(import.meta.env.VITE_DEFAULT_TIMEOUT || '10000')
 const router = createBrowserRouter([
   {
     path: '/',
