@@ -1,4 +1,3 @@
-// src/components/Errors/ErrorBoundary.tsx
 import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface ErrorBoundaryProps {
