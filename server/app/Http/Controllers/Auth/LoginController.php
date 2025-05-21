@@ -5,30 +5,27 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            $user = Auth::user();
-            
-            return response()->json([
-                'user' => $user,
-                'token' => $user->createToken('auth_token')->plainTextToken
-            ]);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        throw ValidationException::withMessages([
-            'email' => [__('auth.failed')],
-        ]);
+        $user = $request->user();
+        $token = $user->createToken('sanctum_token')->plainTextToken;
+
+        return response()->json([
+            'message' => 'Login successful',
+            'user' => $user,
+            'token' => $token,
+        ])->cookie('auth_token', $token, 60 * 24 * 30); // 30 days
     }
 }
