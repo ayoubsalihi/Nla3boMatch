@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { save_user_account } from "./redux/slices/UserDataSlice";
+import { save_user_account, logout_user_account } from "./redux/slices/UserDataSlice";
 import { send_request } from "./helpers/send_request";
 import { RootState } from "./redux/store";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,40 +15,46 @@ const App: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
-  const checkAuth = async () => {
-    try {
-      // Ensure CSRF cookie is set
-      await axios.get(import.meta.env.VITE_CSRF_URL, { withCredentials: true });
-      
-      // Check auth status
-      const response = await send_request('GET', 'user');
-      dispatch(save_user_account(response.data));
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        Cookies.remove('sanctum_token');
-        navigate('/auth/login');
+    const checkAuth = async () => {
+      try {
+        // Ensure CSRF cookie is set
+        await axios.get(import.meta.env.VITE_CSRF_URL, { withCredentials: true });
+        
+        // Check auth status
+        const response = await send_request('GET', 'user');
+        dispatch(save_user_account(response.data));
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+          Cookies.remove('sanctum_token');
+          dispatch(logout_user_account());
+          navigate('/login');
+        }
+      } finally {
+        setLoading(false);
       }
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  if (!user) checkAuth();
-}, [dispatch, navigate, user]);
+    if (!user) checkAuth();
+  }, [dispatch, navigate, user]);
 
   useEffect(() => {
     if (!loading) {
-      const isPublicRoute = ['/', '/auth/login', '/auth/register'].includes(location.pathname);
-      const isProtectedRoute = location.pathname.startsWith('/admin') || 
-                              location.pathname.startsWith('/user');
+      const isPublicRoute = ['/', '/login', '/register'].includes(location.pathname);
+      const isAdminRoute = location.pathname.startsWith('/admin');
 
       if (user) {
-        if (isPublicRoute) {
-          navigate(user.type_utilisateur === 'admin' ? '/admin/dashboard' : '/user/dashboard');
+        // Redirect admins from public routes to dashboard
+        if (isPublicRoute && user.type_utilisateur === 'admin') {
+          navigate('/admin/dashboard');
+        }
+        // Prevent non-admins from accessing admin routes
+        if (isAdminRoute && user.type_utilisateur !== 'admin') {
+          navigate('/unauthorized');
         }
       } else {
-        if (isProtectedRoute) {
-          navigate('/auth/login', { state: { from: location } });
+        // Redirect unauthenticated users trying to access protected routes
+        if (isAdminRoute) {
+          navigate('/login', { state: { from: location } });
         }
       }
     }
