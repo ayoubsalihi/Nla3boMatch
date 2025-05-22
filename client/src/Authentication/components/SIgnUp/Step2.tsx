@@ -1,6 +1,23 @@
 import Input from "./Input";
+import { FormData } from "../../../interfaces/interfaces";
 
-const Step2 = ({ formData, setFormData, nextStep, prevStep }) => {
+interface Step2Props {
+  formData: FormData;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  nextStep: () => void;
+  prevStep: () => void;
+  submitForm: () => void;
+  backendErrors: Record<string, string>;
+}
+
+const Step2 = ({ 
+  formData, 
+  setFormData, 
+  nextStep, 
+  prevStep, 
+  submitForm,
+  backendErrors 
+}: Step2Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -12,7 +29,7 @@ const Step2 = ({ formData, setFormData, nextStep, prevStep }) => {
     formData.cin.trim() !== '' &&
     formData.city.trim() !== '' &&
     formData.neighborhood.trim() !== '' &&
-    formData.phone.trim() !== '' &&  // Added phone validation
+    formData.phone.trim() !== '' &&
     formData.email.trim() !== '' &&
     formData.password.trim() !== '' &&
     formData.confirmPassword.trim() !== '' &&
@@ -21,8 +38,16 @@ const Step2 = ({ formData, setFormData, nextStep, prevStep }) => {
   return (
     <div className="w-full max-w-xs">
       <h2 className="text-xl font-semibold mb-6">Personal Information</h2>
+      
+      {Object.keys(backendErrors).length > 0 && (
+        <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
+          {Object.entries(backendErrors).map(([field, message]) => (
+            <p key={field}>{message}</p>
+          ))}
+        </div>
+      )}
+
       <div className="space-y-4">
-        {/* Existing fields */}
         <Input
           name="firstName"
           placeholder="First Name"
@@ -58,7 +83,6 @@ const Step2 = ({ formData, setFormData, nextStep, prevStep }) => {
           onChange={handleChange}
           required
         />
-        {/* New telephone field */}
         <Input
           name="phone"
           type="tel"
@@ -94,6 +118,7 @@ const Step2 = ({ formData, setFormData, nextStep, prevStep }) => {
           required
         />
       </div>
+
       <div className="flex justify-between mt-8">
         <button
           onClick={prevStep}
@@ -102,7 +127,14 @@ const Step2 = ({ formData, setFormData, nextStep, prevStep }) => {
           Back
         </button>
         <button
-          onClick={nextStep}
+          onClick={() => {
+            setFormData(prev => ({ ...prev, ...formData }));
+            if (formData.role === 'manager') {
+              submitForm();
+            } else {
+              nextStep();
+            }
+          }}
           disabled={!isValid}
           className={`px-6 py-3 rounded-lg ${
             isValid 
@@ -110,7 +142,7 @@ const Step2 = ({ formData, setFormData, nextStep, prevStep }) => {
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
         >
-          Continue
+          {formData.role === 'manager' ? 'Complete Registration' : 'Continue'}
         </button>
       </div>
     </div>
