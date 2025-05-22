@@ -91,11 +91,10 @@ export const FIFAPlayerCard = ({ position, skills }: {
   );
 };
 
-const Step4 = ({ formData, setFormData, submitForm, prevStep }: {
+const Step4 = ({ formData, setFormData, submitForm }: {
   formData: FormData;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   submitForm: () => void;
-  prevStep: () => void;
 }) => {
   const isGoalkeeper = formData.position === "goalkeeper";
   
@@ -157,13 +156,7 @@ const Step4 = ({ formData, setFormData, submitForm, prevStep }: {
           ))}
         </div>
 
-        <div className="flex justify-between mt-8">
-          <button
-            onClick={prevStep}
-            className="px-6 py-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
-          >
-            Back
-          </button>
+        <div className="flex justify-end mt-8">
           <button
             onClick={submitForm}
             className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
