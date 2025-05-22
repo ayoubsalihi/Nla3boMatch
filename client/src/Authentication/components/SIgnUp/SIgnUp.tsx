@@ -12,9 +12,16 @@ interface SignUpFormProps {
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   submitForm: () => void;
+  backendErrors: Record<string, string>;
 }
 
-const SignUpForm = ({ onSwitchToLogin, setFormData, setCurrentStep, submitForm }: SignUpFormProps) => {
+const SignUpForm = ({ 
+  onSwitchToLogin, 
+  setFormData, 
+  setCurrentStep, 
+  submitForm,
+  backendErrors 
+}: SignUpFormProps) => {
   const [step, setStep] = useState(1);
   const [localFormData, setLocalFormData] = useState<FormData>({
     role: "",
@@ -24,6 +31,7 @@ const SignUpForm = ({ onSwitchToLogin, setFormData, setCurrentStep, submitForm }
     cin: "",
     city: "",
     neighborhood: "",
+    phone: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -80,6 +88,8 @@ const SignUpForm = ({ onSwitchToLogin, setFormData, setCurrentStep, submitForm }
               setFormData={setLocalFormData}
               nextStep={() => handleStepChange(3)}
               prevStep={() => handleStepChange(1)}
+              submitForm={submitForm}
+              backendErrors={backendErrors}
             />
           )}
           {step === 3 && (
