@@ -102,12 +102,12 @@ const LoginPage = () => {
         email: signupFormData.email,
         password: signupFormData.password,
         password_confirmation: signupFormData.confirmPassword,
-        type_utilisateur: 'player',
+        type_utilisateur: signupFormData.role === 'manager' ? 'manager' : 'player',
         cin: signupFormData.cin,
         telephone: signupFormData.phone,
         ville_residence: signupFormData.city,
         quartier: signupFormData.neighborhood,
-        poste: signupFormData.position,
+        ...(signupFormData.role === 'player' && { poste: signupFormData.position }),
       };
 
       const positionPayload = signupFormData.position === 'GK' ? {
@@ -126,18 +126,11 @@ const LoginPage = () => {
         physical: signupFormData.skills.physical || 0
       };
 
-      const finalPayload = {
-        ...basePayload,
-        ...positionPayload
-      };
+      const finalPayload = signupFormData.role === 'manager'
+        ? basePayload
+        : { ...basePayload, ...positionPayload };
 
-      Object.keys(finalPayload).forEach(key => {
-        if (finalPayload[key] === undefined) delete finalPayload[key];
-      });
-
-      // Get CSRF cookie
       await axios.get(import.meta.env.VITE_CSRF_URL, { withCredentials: true });
-      
       const response = await send_request('POST', 'register', finalPayload);
 
       if (response?.data.token) {
@@ -162,7 +155,6 @@ const LoginPage = () => {
       }
     }
   };
-
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 relative">
@@ -196,6 +188,7 @@ const LoginPage = () => {
                 setFormData={setSignupFormData}
                 setCurrentStep={setCurrentStep}
                 submitForm={handleSignupSubmit}
+                backendErrors={backendErrors}
               />
             ) : (
               <LoginForm
