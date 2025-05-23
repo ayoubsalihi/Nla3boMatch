@@ -87,7 +87,7 @@ const LoginPage = () => {
         });
         
         dispatch(save_user_account(response.data.user));
-        navigate('/dashboard');
+        navigate('/admin/dashboard');
       }
     } catch (error) {
       handleAuthError(error, setBackendErrors);

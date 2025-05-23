@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { MenuGroup } from './MenuData';
 
@@ -21,17 +22,17 @@ const CollapsedSidebar = ({
   toggleSidebar
 }: CollapsedSidebarProps) => {
   return (
-<div
-  className={`
-    fixed inset-y-0 left-0
-    w-16
-    bg-white shadow-md
-    flex flex-col items-center pt-16 pb-4
-    transform transition-transform duration-300 ease-in-out
-    ${isSidebarOpen ? '-translate-x-full' : 'translate-x-0'}
-    z-40
-  `}
->
+    <div
+      className={`
+        fixed inset-y-0 left-0
+        w-16
+        bg-white shadow-md
+        flex flex-col items-center pt-16 pb-4
+        transform transition-transform duration-300 ease-in-out
+        ${isSidebarOpen ? '-translate-x-full' : 'translate-x-0'}
+        z-40
+      `}
+    >
       <button
         onClick={toggleSidebar}
         className="absolute top-4 left-4 p-2 rounded-md hover:bg-gray-200 focus:outline-none transition-all duration-300 ease-in-out"
@@ -58,79 +59,36 @@ const CollapsedSidebar = ({
           <div className="text-blue-500 font-bold text-2xl">F</div>
           <div className="text-gray-300">...</div>
 
-          {menuData[0].items.map(item => (
-            <div key={item.id} className="relative" onMouseEnter={() => setHoveredItem(item.id)} onMouseLeave={() => setHoveredItem(null)}>
-              <button
-                onClick={openSidebar}
-                className="p-2 rounded-md hover:bg-blue-100 cursor-pointer transition-all duration-300 ease-in-out text-gray-600 hover:text-blue-500"
-              >
-                {item.icon}
-              </button>
+          {menuData.map((group, groupIndex) => (
+            <React.Fragment key={group.heading}>
+              {group.items.map((item) => (
+                <div
+                  key={item.id}
+                  className="relative"
+                  onMouseEnter={() => setHoveredItem(item.id)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  <button
+                    onClick={openSidebar}
+                    className="p-2 rounded-md hover:bg-blue-100 cursor-pointer transition-all duration-300 ease-in-out text-gray-600 hover:text-blue-500"
+                  >
+                    {item.icon}
+                  </button>
 
-              {hoveredItem === item.id && (
-                <div className="absolute left-16 top-1/2 -translate-y-1/2 bg-gray-800 text-white px-2 py-1 rounded text-sm whitespace-nowrap z-50">
-                  {item.label}
+                  {hoveredItem === item.id && (
+                    <div className="absolute left-16 top-1/2 -translate-y-1/2 bg-gray-800 text-white px-2 py-1 rounded text-sm whitespace-nowrap z-50">
+                      {item.label}
+                    </div>
+                  )}
                 </div>
+              ))}
+              {groupIndex < menuData.length - 1 && (
+                <div className="text-gray-300">...</div>
               )}
-            </div>
+            </React.Fragment>
           ))}
 
           <div className="text-gray-300">...</div>
-
-          {menuData[1].items.map(item => (
-            <div key={item.id} className="relative" onMouseEnter={() => setHoveredItem(item.id)} onMouseLeave={() => setHoveredItem(null)}>
-              <button
-                onClick={openSidebar}
-                className="p-2 rounded-md hover:bg-blue-100 cursor-pointer transition-all duration-300 ease-in-out text-gray-600 hover:text-blue-500"
-              >
-                {item.icon}
-              </button>
-
-              {hoveredItem === item.id && (
-                <div className="absolute left-16 top-1/2 -translate-y-1/2 bg-gray-800 text-white px-2 py-1 rounded text-sm whitespace-nowrap z-50">
-                  {item.label}
-                </div>
-              )}
-            </div>
-          ))}
-
-          <div className="text-gray-300">...</div>
-
-          {menuData[2].items.map(item => (
-            <div key={item.id} className="relative" onMouseEnter={() => setHoveredItem(item.id)} onMouseLeave={() => setHoveredItem(null)}>
-              <button
-                onClick={openSidebar}
-                className="p-2 rounded-md hover:bg-blue-100 cursor-pointer transition-all duration-300 ease-in-out text-gray-600 hover:text-blue-500"
-              >
-                {item.icon}
-              </button>
-
-              {hoveredItem === item.id && (
-                <div className="absolute left-16 top-1/2 -translate-y-1/2 bg-gray-800 text-white px-2 py-1 rounded text-sm whitespace-nowrap z-50">
-                  {item.label}
-                </div>
-              )}
-            </div>
-          ))}
-
-          <div className="text-gray-300">...</div>
-
-          {menuData[3].items.map(item => (
-            <div key={item.id} className="relative" onMouseEnter={() => setHoveredItem(item.id)} onMouseLeave={() => setHoveredItem(null)}>
-              <button
-                onClick={openSidebar}
-                className="p-2 rounded-md hover:bg-blue-100 cursor-pointer transition-all duration-300 ease-in-out text-gray-600 hover:text-blue-500"
-              >
-                {item.icon}
-              </button>
-
-              {hoveredItem === item.id && (
-                <div className="absolute left-16 top-1/2 -translate-y-1/2 bg-gray-800 text-white px-2 py-1 rounded text-sm whitespace-nowrap z-50">
-                  {item.label}
-                </div>
-              )}
-            </div>
-          ))}
         </div>
 
         <div className="flex flex-col items-center mb-4 space-y-2">
