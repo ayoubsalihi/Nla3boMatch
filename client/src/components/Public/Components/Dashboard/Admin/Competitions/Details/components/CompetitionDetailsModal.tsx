@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../../../../redux/store";
 import { useEffect, useState } from "react";
 import { Competition } from "../../../../../../../../interfaces/interfaces";
+import { reset_active_element } from "../../../../../../../../redux/slices/ActiveElement";
 
 
 type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl';
@@ -59,10 +60,10 @@ const CompetitionDetailsModal = () => {
                 {ActiveElement.show_header && (
                     <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
                         <h3 className="text-lg font-semibold text-gray-900">
-                            {ActiveElement.action_type === 'add' && 'Add New Command'}
-                            {ActiveElement.action_type === 'edit' && 'Edit Command'}
-                            {ActiveElement.action_type === 'delete' && 'Delete Command'}
-                            {ActiveElement.action_type === 'view' && `Command Details #${command.id}`}
+                            {ActiveElement.action_type === 'create' && 'Create new competition'}
+                            {ActiveElement.action_type === 'update' && 'Update a competition'}
+                            {ActiveElement.action_type === 'delete' && 'Delete a competition'}
+                            {ActiveElement.action_type === 'read' && `Competition's details of #${competition.id}`}
                         </h3>
                         <button
                             onClick={() => dispatch(reset_active_element())}

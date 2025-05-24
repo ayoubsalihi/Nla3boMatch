@@ -11,7 +11,7 @@ import UsersLayout from './components/Public/Components/Dashboard/Admin/Users/Us
 import Players from './components/Public/Json/Players';
 import Goalkeepers from './components/Public/Components/Dashboard/Admin/Goalkeepers/Goalkeepers';
 import InsidePlayers from './components/Public/Components/Dashboard/Admin/InsidePlayers/InsidePlayers';
-import CompetitionsLayout from './components/Public/Components/Dashboard/Admin/Competitions/CompetitionsLayout';
+import CompetitionsLayout from './components/Public/Components/Dashboard/Admin/Competitions/Details/components/CompetitionsLayout';
 import CompetitionDetails from './components/Public/Components/Dashboard/Admin/Competitions/Details/CompetitionDetails';
 import CompetitionMatches from './components/Public/Components/Dashboard/Admin/Competitions/CompetitionMatches';
 import CompetitionGroups from './components/Public/Components/Dashboard/Admin/Competitions/CompetitionGroups';
