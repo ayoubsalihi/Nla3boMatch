@@ -66,4 +66,13 @@ class UserController extends Controller
             'message'=> 'User deleted successfully',
         ]);
     }
+
+    public function get_current(){
+        $user = auth()->user();
+        $user->load(['player','admin']); // Eager load relationships
+        return response()->json([
+            'user' => $user,
+            'owner' => $user->getOwner()
+        ]);
+    }
 }
