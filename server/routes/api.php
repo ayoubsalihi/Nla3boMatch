@@ -38,6 +38,7 @@ Route::resource("inside_players",InsidePlayerController::class)->middleware(["co
 Route::resource("goalkeepers",GoalkeeperController::class)->middleware(["cookie","auth:sanctum"]);
 Route::resource("messages",MessageController::class)->middleware(["cookie","auth:sanctum"]);
 Route::resource("chats",ChatController::class)->middleware(["cookie","auth:sanctum"]);
+Route::get("current_user",[UserController::class,"get_current"])->middleware(["cookie","auth:sanctum"]);
 
 // Terrains side
 Route::resource("academies",AcademyController::class)->middleware(["cookie","auth:sanctum"]);
