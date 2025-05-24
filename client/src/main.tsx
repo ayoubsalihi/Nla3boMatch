@@ -12,7 +12,7 @@ import Players from './components/Public/Json/Players';
 import Goalkeepers from './components/Public/Components/Dashboard/Admin/Goalkeepers/Goalkeepers';
 import InsidePlayers from './components/Public/Components/Dashboard/Admin/InsidePlayers/InsidePlayers';
 import CompetitionsLayout from './components/Public/Components/Dashboard/Admin/Competitions/CompetitionsLayout';
-import CompetitionDetails from './components/Public/Components/Dashboard/Admin/Competitions/CompetitionDetails';
+import CompetitionDetails from './components/Public/Components/Dashboard/Admin/Competitions/Details/CompetitionDetails';
 import CompetitionMatches from './components/Public/Components/Dashboard/Admin/Competitions/CompetitionMatches';
 import CompetitionGroups from './components/Public/Components/Dashboard/Admin/Competitions/CompetitionGroups';
 // import CompetitonStandings from './components/Public/Components/Dashboard/Admin/Competitions/CompetitonStandings';
