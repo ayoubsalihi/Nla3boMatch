@@ -102,39 +102,41 @@ const LoginPage = () => {
         email: signupFormData.email,
         password: signupFormData.password,
         password_confirmation: signupFormData.confirmPassword,
-        type_utilisateur: signupFormData.role === 'manager' ? 'manager' : 'player',
+        type_utilisateur: signupFormData.role === 'manager' ? 'admin' : 'player',
         cin: signupFormData.cin,
         telephone: signupFormData.phone,
         ville_residence: signupFormData.city,
         quartier: signupFormData.neighborhood,
-        ...(signupFormData.role === 'player' && { poste: signupFormData.position }),
       };
 
-      const positionPayload = signupFormData.position === 'GK' ? {
-        diving: signupFormData.skills.diving || 0,
-        reflex: signupFormData.skills.reflex || 0,
-        handling: signupFormData.skills.handling || 0,
-        kicking: signupFormData.skills.kicking || 0,
-        positionning: signupFormData.skills.positioning || 0,
-        speed: signupFormData.skills.speed || 0
-      } : {
-        pace: signupFormData.skills.pace || 0,
-        dribbling: signupFormData.skills.dribbling || 0,
-        shooting: signupFormData.skills.shooting || 0,
-        defending: signupFormData.skills.defending || 0,
-        passing: signupFormData.skills.passing || 0,
-        physical: signupFormData.skills.physical || 0
-      };
+      const playerPayload = signupFormData.role === 'player' ? {
+        poste: signupFormData.position,
+        ...(signupFormData.position === 'GK' ? {
+          diving: signupFormData.skills.diving,
+          reflex: signupFormData.skills.reflex,
+          handling: signupFormData.skills.handling,
+          kicking: signupFormData.skills.kicking,
+          positionning: signupFormData.skills.positioning,
+          speed: signupFormData.skills.speed
+        } : {
+          pace: signupFormData.skills.pace,
+          dribbling: signupFormData.skills.dribbling,
+          shooting: signupFormData.skills.shooting,
+          defending: signupFormData.skills.defending,
+          passing: signupFormData.skills.passing,
+          physical: signupFormData.skills.physical
+        })
+      } : {};
 
       const finalPayload = signupFormData.role === 'manager'
         ? basePayload
-        : { ...basePayload, ...positionPayload };
+        : { ...basePayload, ...playerPayload };
 
       await axios.get(import.meta.env.VITE_CSRF_URL, { withCredentials: true });
-      const response = await send_request('POST', 'register', finalPayload);
+      const { data } = await send_request('POST', 'register', finalPayload);
 
-      if (response?.data.token) {
-        Cookies.set('sanctum_token', response.data.token, {
+      if (data?.token) {
+        Cookies.set('sanctum_token', data.token, {
           secure: import.meta.env.PROD,
           sameSite: 'lax'
         });
