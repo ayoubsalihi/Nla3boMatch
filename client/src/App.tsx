@@ -13,7 +13,7 @@ const App: React.FC = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
   const user = useSelector((state: RootState) => state.auth.user);
-
+  
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -21,7 +21,7 @@ const App: React.FC = () => {
         await axios.get(import.meta.env.VITE_CSRF_URL, { withCredentials: true });
         
         // Check auth status
-        const response = await send_request('GET', 'user');
+        const response = await send_request('GET', 'current_user');
         dispatch(save_user_account(response.data));
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
