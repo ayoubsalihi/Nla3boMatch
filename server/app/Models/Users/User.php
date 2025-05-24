@@ -64,7 +64,8 @@ class User extends Authenticatable
     }
 
     public function getOwner(){
-        return $this->admin ?? $this->player;
+        if ($this->player) return $this->player;
+        elseif ($this->admin) return $this->admin ; 
     }
     
 }
