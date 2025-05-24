@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Overview';
-import {  useSelector } from 'react-redux';
-// import { fetchDashboardData } from '../../redux/thunks';
+import {  useDispatch, useSelector } from 'react-redux';
+import { fetchDashboardData } from '../../../../redux/thunks';
 import { ReduxState } from '../../../../interfaces/interfaces';
 
 const Dashboard = () => {
   const [, setIsSidebarOpen] = useState(false);
-//   const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const global_data = useSelector((state: ReduxState) => state.global_data);
   const handleSidebarToggle = (isOpen: boolean) => {
     setIsSidebarOpen(isOpen);
   };
 
-//   useEffect(() => {
-//     console.log('Fetching dashboard data...');
-//     dispatch(fetchDashboardData());
-//   }, [dispatch]);
+  useEffect(() => {
+    console.log('Fetching dashboard data...');
+    dispatch(fetchDashboardData());
+  }, [dispatch]);
 
   useEffect(() => {
     console.log('Global Data:', global_data);

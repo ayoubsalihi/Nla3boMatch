@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { save_user_account, logout_user_account } from "./redux/slices/UserDataSlice";
 import { send_request } from "./helpers/send_request";
 import { RootState } from "./redux/store";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { ReduxState } from "./interfaces/interfaces";
+import { save_data } from "./redux/slices/GlobalDataSlice";
+import { reset_action } from "./redux/slices/ActionsSlice";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const [loading, setLoading] = useState(true);
+  const action_state = useSelector((state: ReduxState) => state.actions)
   const user = useSelector((state: RootState) => state.auth.user);
-  
+  const is_logged = useSelector((state: ReduxState) =>  state.user_data.logged)
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -21,7 +25,15 @@ const App: React.FC = () => {
         await axios.get(import.meta.env.VITE_CSRF_URL, { withCredentials: true });
         
         // Check auth status
-        const response = await send_request('GET', 'current_user');
+        if (is_logged && user?.type_utilisateur === 'admin') {
+          navigate('admin/dashboard')
+          return
+        }
+        const response = await send_request('GET', 'current_user')
+        .then((response)=>{
+          dispatch(save_user_account(response.data))
+          navigate('admin/dashboard')
+        })
         dispatch(save_user_account(response.data));
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -35,30 +47,20 @@ const App: React.FC = () => {
     };
 
     if (!user) checkAuth();
-  }, [dispatch, navigate, user]);
+  }, [dispatch, navigate, is_logged , user]);
 
-  useEffect(() => {
-    if (!loading) {
-      const isPublicRoute = ['/', '/login', '/register'].includes(location.pathname);
-      const isAdminRoute = location.pathname.startsWith('/admin');
+  useEffect(()=>{
+    if (action_state.data_changed && action_state.route) {
+      send_request('GET',action_state.route)
+      .then((res)=>{
+        if (res.status === 200) {
+          dispatch(save_data({route:action_state.route, date:res.data}))
 
-      if (user) {
-        // Redirect admins from public routes to dashboard
-        if (isPublicRoute && user.type_utilisateur === 'admin') {
-          navigate('/admin/dashboard');
         }
-        // Prevent non-admins from accessing admin routes
-        if (isAdminRoute && user.type_utilisateur !== 'admin') {
-          navigate('/unauthorized');
-        }
-      } else {
-        // Redirect unauthenticated users trying to access protected routes
-        if (isAdminRoute) {
-          navigate('/login', { state: { from: location } });
-        }
-      }
+        dispatch(reset_action())
+      })
     }
-  }, [user, loading, location, navigate]);
+  },[action_state,dispatch])
 
   if (loading) {
     return (
