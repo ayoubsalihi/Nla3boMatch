@@ -127,23 +127,18 @@ const Step2 = ({
           Back
         </button>
         <button
-          onClick={() => {
-            setFormData(prev => ({ ...prev, ...formData }));
-            if (formData.role === 'manager') {
-              submitForm();
-            } else {
-              nextStep();
-            }
-          }}
-          disabled={!isValid}
-          className={`px-6 py-3 rounded-lg ${
-            isValid 
-              ? 'bg-green-500 text-white hover:bg-green-600'
-              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-          }`}
-        >
-          {formData.role === 'manager' ? 'Complete Registration' : 'Continue'}
-        </button>
+  onClick={() => {
+    setFormData(prev => ({ ...prev, ...formData }));
+    if (formData.role === 'manager') {
+      submitForm();
+    } else {
+      nextStep();
+    }
+  }}
+  disabled={!isValid}
+>
+  {formData.role === 'manager' ? 'Complete Registration' : 'Continue'}
+</button>
       </div>
     </div>
   );

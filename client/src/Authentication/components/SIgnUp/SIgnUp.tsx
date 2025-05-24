@@ -42,12 +42,17 @@ const SignUpForm = ({
     setFormData(localFormData);
   }, [localFormData, setFormData]);
 
-  const steps = [
-    { number: 1, icon: FiUser, label: "Role" },
-    { number: 2, icon: FiFileText, label: "Details" },
-    { number: 3, icon: FiShield, label: "Position" },
-    { number: 4, icon: FiSliders, label: "Skills" },
-  ];
+  const steps = localFormData.role === 'manager'
+  ? [
+      { number: 1, icon: FiUser, label: "Role" },
+      { number: 2, icon: FiFileText, label: "Details" },
+    ]
+  : [
+      { number: 1, icon: FiUser, label: "Role" },
+      { number: 2, icon: FiFileText, label: "Details" },
+      { number: 3, icon: FiShield, label: "Position" },
+      { number: 4, icon: FiSliders, label: "Skills" },
+    ];
 
   const handleStepChange = (newStep: number) => {
     setStep(newStep);
@@ -76,38 +81,42 @@ const SignUpForm = ({
           transition={{ duration: 0.3 }}
         >
           {step === 1 && (
-            <Step1
-              formData={localFormData}
-              setFormData={setLocalFormData}
-              nextStep={() => handleStepChange(2)}
-            />
-          )}
-          {step === 2 && (
-            <Step2
-              formData={localFormData}
-              setFormData={setLocalFormData}
-              nextStep={() => handleStepChange(3)}
-              prevStep={() => handleStepChange(1)}
-              submitForm={submitForm}
-              backendErrors={backendErrors}
-            />
-          )}
-          {step === 3 && (
-            <Step3
-              formData={localFormData}
-              setFormData={setLocalFormData}
-              nextStep={() => handleStepChange(4)}
-              prevStep={() => handleStepChange(2)}
-            />
-          )}
-          {step === 4 && (
-            <Step4
-              formData={localFormData}
-              setFormData={setLocalFormData}
-              submitForm={submitForm}
-              prevStep={() => handleStepChange(3)}
-            />
-          )}
+  <Step1
+    formData={localFormData}
+    setFormData={setLocalFormData}
+    nextStep={() => handleStepChange(2)}
+  />
+)}
+{step === 2 && (
+  <Step2
+    formData={localFormData}
+    setFormData={setLocalFormData}
+    nextStep={() => handleStepChange(3)}
+    prevStep={() => handleStepChange(1)}
+    submitForm={submitForm}
+    backendErrors={backendErrors}
+  />
+)}
+{localFormData.role === 'player' && (
+  <>
+    {step === 3 && (
+      <Step3
+        formData={localFormData}
+        setFormData={setLocalFormData}
+        nextStep={() => handleStepChange(4)}
+        prevStep={() => handleStepChange(2)}
+      />
+    )}
+    {step === 4 && (
+      <Step4
+        formData={localFormData}
+        setFormData={setLocalFormData}
+        submitForm={submitForm}
+        prevStep={() => handleStepChange(3)}
+      />
+    )}
+  </>
+)}
         </motion.div>
 
         <p className="mt-6 text-xs text-gray-600 text-center">
