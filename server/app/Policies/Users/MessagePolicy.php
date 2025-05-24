@@ -19,7 +19,7 @@ class MessagePolicy
     {
         return $this->permissionsForUser(
             $user,
-            [User::class],
+            [Admin::class],
             "You don't have permission to view any message.",
         );
     }
