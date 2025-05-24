@@ -30,7 +30,7 @@ class MessageController extends Controller
         $message = Message::create($request->validated());
         return response()->json([
             'message' => 'Message created successfully',
-            'message' => $message,
+            'messagee' => $message,
         ], 201);
     }
 

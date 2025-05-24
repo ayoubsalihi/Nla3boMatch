@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Gate;
 class AcademyController extends Controller
 {
    
-    public function index1()
+    public function index()
     {
         Gate::authorize('viewAny',Academy::class);
         $academies = Academy::all();
