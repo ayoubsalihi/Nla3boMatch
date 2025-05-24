@@ -23,19 +23,16 @@ use App\Http\Controllers\Users\InsidePlayerController;
 use App\Http\Controllers\Users\MessageController;
 use App\Http\Controllers\Users\PlayerController;
 use App\Http\Controllers\Users\UserController;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user()->load('player');
-    });
-});
+
 Route::post("/register",[RegisterController::class,"register"]);
 Route::post("/login",[LoginController::class,"login"]);
 
 // Users side
 Route::resource('users',UserController::class)->middleware(["cookie","auth:sanctum"]);
-Route::resource('players',PlayerController::class)->middleware('cookie',"auth:sanctum");
+Route::resource('players',PlayerController::class)->middleware(['cookie',"auth:sanctum"]);
 Route::resource("admins",AdminController::class)->middleware(["cookie","auth:sanctum"]);
 Route::resource("inside_players",InsidePlayerController::class)->middleware(["cookie","auth:sanctum"]);
 Route::resource("goalkeepers",GoalkeeperController::class)->middleware(["cookie","auth:sanctum"]);
