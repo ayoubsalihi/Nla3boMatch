@@ -5,6 +5,7 @@ import { Competition } from "../../../../../../../../interfaces/interfaces";
 import { reset_active_element } from "../../../../../../../../redux/slices/ActiveElement";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Add_Competition from "./Add_Competition";
+import UpdateCompetition from "./UpdateCompetition";
 
 type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl';
 const CompetitionDetailsModal = () => {
@@ -77,7 +78,7 @@ const CompetitionDetailsModal = () => {
                 )}
                 <div className="p-6 overflow-y-auto max-h-[calc(100vh-200px)]">
                     {ActiveElement.action_type === 'update' ? (
-                        <Update_competition />
+                        <UpdateCompetition />
                     ) : ActiveElement.action_type === 'create' ? (
                         <Add_Competition />
                     ) : ActiveElement.action_type === 'delete' ? (
