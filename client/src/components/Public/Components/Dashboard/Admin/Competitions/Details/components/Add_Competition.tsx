@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { ReduxState, Team } from "../../../../../../../../interfaces/interfaces"
 import { useEffect, useRef, useState } from "react";
 import { Group } from "three/src/Three.Core.js";
+import { send_request } from "../../../../../../../../helpers/send_request";
 
 interface selectedTeam {
   team_id:number;
@@ -38,7 +39,33 @@ const Add_Competition = () => {
         setLoading(prev => ({...prev, groups:false}))
       }
     }
-  })
+
+    if (!globalData || globalData.teams.length === 0) {
+      send_request('GET','teams')
+      ?.then((res)=>{
+        if (res.status === 200) {
+          setTeams(res.data)
+        }
+      })
+      .catch((err)=>console.error("Error fetching data of ", err))
+      .finally(()=>{
+        setLoading(prev=> ({...prev, teams:false}))
+      })
+    }
+
+    if (!globalData || globalData.teams.length === 0) {
+      send_request('GET','groups')
+      ?.then((res)=>{
+        if (res.status === 200) {
+          setGroups(res.data)
+        }
+      })
+      .catch((err)=>console.error("Error fetching data of ", err))
+      .finally(()=>{
+        setLoading(prev=> ({...prev, groups:false}))
+      })
+    }
+  },[globalData])
   
   return (
     <div>Add_Competition</div>
