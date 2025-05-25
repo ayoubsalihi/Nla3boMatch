@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { ReduxState, Team } from "../../../../../../../../interfaces/interfaces"
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Group } from "three/src/Three.Core.js";
 
 interface selectedTeam {
   team_id:number;
@@ -9,12 +10,24 @@ interface selectedTeam {
 const Add_Competition = () => {
   const dispatch = useDispatch()
   const globalData = useSelector((state: ReduxState)=> state.global_data)
+  // To bring spesific data changes from spesific tables
   const [teams , setTeams] = useState<Team[]>([])
-  const 
+  const [groups , setGroups] = useState<Group[]>([])
+
   const [selectedTeam , setSelectedTeams] = useState<selectedTeam[]>([])
   const [loading,setLoading] = useState({
-
+    groups : true,
+    teams : true,
   })
+
+  // inputs references
+  const d_intitule_comp_ref = useRef<HTMLInputElement>(null)
+  const d_type_comp_ref = useRef<HTMLInputElement>(null)
+  const d_debut_date = useRef<HTMLInputElement>(null)
+  const d_finishing_date = useRef<HTMLInputElement>(null)
+
+  
+  
   return (
     <div>Add_Competition</div>
   )
